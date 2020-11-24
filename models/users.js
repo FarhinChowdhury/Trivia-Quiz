@@ -8,7 +8,7 @@ let userData = new Schema({
       {
           username: {
               type: String,
-              required: true,
+              required: [true, 'Please enter a username.'],
               trim: true
           },
           email: {
@@ -19,6 +19,7 @@ let userData = new Schema({
           },
           password: {
             type: String,
+            minlength: [8, 'Enter a password no less than 8 characters in length.'],
             required: true,
             trim: true
           },
