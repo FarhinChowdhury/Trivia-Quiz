@@ -20,6 +20,7 @@ function App() {
       <Router>
         <Route exact path='/' component={Home} />
         <Route exact path='/game' component={Game} />
+        <Route exact path='/score' component={Score} />
       </Router>
     </globalContext.Provider>
   );
