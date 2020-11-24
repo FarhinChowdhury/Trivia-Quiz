@@ -24,16 +24,18 @@ let userData = new Schema({
             trim: true
           },
           highscore_TA: {
-            type: Number
+            type: Number,
+            default: 0
           },
           highscore_LVL: {
-            type: Number
+            type: Number,
+            default: 0
           }
       }
   ]
 
 });
 
-const userData = mongoose.model("User Data", userSchema);
+const userData = mongoose.model("userData", userSchema);
 
 module.exports = userData;
