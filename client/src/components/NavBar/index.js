@@ -1,6 +1,6 @@
 import React from "react";
-import './NavBar.css'
-
+import './NavBar.css';
+import { NavLink } from "react-router-dom";
 
 
 function NavBar(){
@@ -9,10 +9,10 @@ function NavBar(){
             <a className="navbar-brand" href="#" style={{color:"azure", fontSize:"1.7em"}}>E-LOGICAL</a>
             <ul className="nav justify-content-end">
                 <li className="nav-item">
-                <a className="nav-link active" href="/">Home</a>
+                <NavLink to="/" className="nav-link" activeClassName="active">Home</NavLink>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="/login">Login/Sign-up</a>
+                <NavLink to="/login" className="nav-link" activeClassName="active">Login/Sign-up</NavLink>
                 </li>
           </ul>
         </nav>
