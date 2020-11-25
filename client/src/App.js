@@ -63,7 +63,7 @@ function App() {
   }
 
   function handleLoginFormType() {
-    console.log('[handleLoginFormType]');
+    // console.log('[handleLoginFormType]');
     if (formAction==='Login') {
       setFormAction('SignUp');
     } else {
