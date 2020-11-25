@@ -1,5 +1,5 @@
 body{
-    background-image: url(/Users/farhinchowdhury/Desktop/bootcamp/Trivia-Quiz/client/src/assets/project3_background.jpg);
+    background-image: url(../../assets/project3_background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: fill;
