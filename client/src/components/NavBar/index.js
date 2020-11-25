@@ -3,7 +3,7 @@ import './NavBar.css';
 import { NavLink } from "react-router-dom";
 
 
-function NavBar(){
+function NavBar(props){
     return(
         <nav className="navbar">
             <a className="navbar-brand" href="#" style={{color:"azure", fontSize:"1.7em"}}>E-LOGICAL</a>
@@ -12,7 +12,10 @@ function NavBar(){
                 <NavLink to="/" className="nav-link" activeClassName="active">Home</NavLink>
                 </li>
                 <li className="nav-item">
-                <NavLink to="/login" className="nav-link" activeClassName="active">Login/Sign-up</NavLink>
+                  {props.login 
+                    ? <NavLink to="/login" className="nav-link" activeClassName="active">Login/Sign-up</NavLink>
+                    : <NavLink to="/logout" className="nav-link" activeClassName="active">Logout</NavLink>
+                  }
                 </li>
           </ul>
         </nav>

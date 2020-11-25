@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import LoginSignUp from "./components/LoginSignUp";
+import Logout from "./components/Logout";
 
 function App() {
   // DEBUG API (until real API added)
@@ -20,7 +21,6 @@ function App() {
   const [curUser, setCurUser] = useState('');
   const [formInfo, setFormInfo] = useState({ username:'', password:'', email:'', error:'' });
   const [formAction, setFormAction] = useState('Login');
-  const [displayLogin, setDisplayLogin] = useState(false);
 
   function handleLoginChange(evt) {
     let { name, value } = evt.target;
@@ -30,13 +30,12 @@ function App() {
 
   function handleLoginSubmit(evt) {
     evt.preventDefault();
-    // clear error message
-    console.log('[handleSubmit]', formInfo);
+    // console.log('[handleSubmit]', formInfo);
     // check for valid email address
     if (formAction==='SignUp' &&
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formInfo.email)) {
       setFormInfo({...formInfo, error: 'Invalid email address!'});
-      return;
+      return false;
     }
     if (formAction==='SignUp') {
       API.createUser({
@@ -49,18 +48,18 @@ function App() {
         username: formInfo.username,
         password: formInfo.password
       });
-      // Check success
+      // Check success (TBD)
       if (!res.success) {
         setFormInfo({...formInfo, error: 'Invalid credentials!'});
-        return;
+        return false;
       }
     }
     // Successful login/signup!
     setCurUser(formInfo.username);
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
-    // Hide form box
-    setDisplayLogin(false);
+    // Advance to game page by returning true
+    return true;
   }
 
   function handleLoginFormType() {
@@ -72,21 +71,20 @@ function App() {
     }
   }
 
-  let loginButton;
-  if (curUser) {
-    loginButton = <button className="mx-2" onClick={()=>{setCurUser(''); setFormAction('Login');}}>Logout</button>;
-  } else {
-    loginButton = <button className="mx-2" onClick={()=>setDisplayLogin(true)}>Login/SignUp</button>
+  function handleLogout() {
+    setCurUser('');
+    setFormAction('Login');
   }
 
   return(
   <Router>
     <div className="App">
-      <NavBar/>
+      <NavBar login={curUser===''} />
       <Route path="/login">
         <LoginSignUp action={formAction} handleClick={handleLoginFormType}
                     formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
       </Route>
+      <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
       <Home />
     </div>
   </Router>
