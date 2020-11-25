@@ -43,7 +43,7 @@ function LoginSignUp(props) {
         <label htmlFor="username">username</label>
         <input className="mb-3" type="text" id="username" name="username" placeholder="username"
                value={props.formInfo.username} onChange={props.handleChange} />
-        <label htmlFor="password">password (8+ characters) (currently:{props.formInfo.password.length})</label>
+        <label htmlFor="password">password (8+ characters)</label>
         <input className="mb-3" type="password" id="password" name="password" placeholder="password"
                value={props.formInfo.password} onChange={props.handleChange} />
         <button className="mb-2" type="submit" disabled={disableSubmit}>{props.action}</button>
