@@ -1,0 +1,10 @@
+.navbar{
+    background-color: rgba(238, 232, 170, 0);
+    border-bottom: 2px rgba(255, 119, 0, 0.817) solid ;
+    color:azure;
+    font-size:1.3rem;
+    font-weight: bold;
+}
+.nav-link{
+    color:azure;
+}
