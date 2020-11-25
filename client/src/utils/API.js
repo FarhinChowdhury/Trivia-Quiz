@@ -30,7 +30,7 @@ export default {
         let questions = [];
         if (mode === 'ta') {
             return new Promise((resolve, reject) => {
-            axios.get('https://opentdb.com/api.php?amount=50' + (category ? `&category=${category}` : '') + `&token=${token}`)
+            axios.get('https://opentdb.com/api.php?amount=50' + (category ? `&category=${category}` : ''))
                 .then(function (res) {
                     // console.log('[getQuestions](TA)', res);
                     if (res.data.response_code!==0) reject(res.data.response_code);
