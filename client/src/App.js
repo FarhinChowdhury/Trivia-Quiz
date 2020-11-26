@@ -10,12 +10,13 @@ function App() {
 
   const [data, setData] = useState({
     username: '',
-    select: '',
+    category: '',
     mode: '',
     score: 0,
     totalScore: 0,
     setValue: (name, value) =>{
-        setData({...data, [name]: value});
+      console.log(name, value);
+      setData({...data, [name]: value});
     }
   });
 
@@ -26,6 +27,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/home' component={Home} />
         <Route exact path='/game' component={Game} />
+        {/* <Route exact path='/score' component={Score} /> */}
       </Router>
     </globalContext.Provider>
   );
