@@ -8,19 +8,18 @@ const {
     updateScoreLVL
 } = require("../../config/orm");
 
-const userController = require("../../controllers/userController");
 
-router.get('/highscore/ta', getScoreTA.findAll);
+router.post('/user', createUser);
 
-router.get('/highscore/lvl', getScoreLVL.findAll);
+router.post('/user/auth', loginUser);
 
-router.post('/user', createUser.create);
+router.get('/highscore/ta', getScoreTA);
 
-router.post('/user/auth', loginUser.check);
+router.get('/highscore/lvl', getScoreLVL);
 
-router.put('/user/:id', updateScoreTA.findOneAndUpdate);
+router.put('/user/:id', updateScoreTA);
 
-router.put('/user/:id', updateScoreLVL.findOneAndUpdate);
+router.put('/user/:id', updateScoreLVL);
 
 
 module.exports = router;

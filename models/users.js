@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-let userData = new Schema({
+let userSchema = new Schema({
 
   userData: [
       {
