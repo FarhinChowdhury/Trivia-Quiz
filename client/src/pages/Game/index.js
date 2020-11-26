@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import {NavLink} from 'react-router-dom';
 import useSound from 'use-sound';
 import he from 'he';
 import './Game.css'
@@ -28,7 +29,7 @@ function Game(){
     }, []);
 
     async function getQuestions(){
-        const response = await API.getQuestions("", 'ta');
+        const response = await API.getQuestions(select, mode);
         let questions = [];
         let choices = [];
         let corAnswers = [];
@@ -111,11 +112,19 @@ function Game(){
                         </button>
                     )}
                 </div>
-                <span class="badge badge-dark" style={isClicked ? {display: "block"} : {display: "none"}}>Selected: {he.decode(choice)}</span>
+                <span className="badge badge-dark" style={isClicked ? {display: "block"} : {display: "none"}}>Selected: {he.decode(choice)}</span>
                 <hr />
-                <button className="enterBtn" name="confirm" onClick={handleBtnClicked} >
-                    CONFIRM
-                </button>
+                {index === questions.length - 1 ?
+                    <NavLink to='/score' className="enterBtn">            
+                        <button name="confirm" style={{backgroundColor: "transparent", border: "none"}}>
+                            CONFIRM
+                        </button>
+                    </NavLink>
+                    :
+                    <button className="enterBtn" name="confirm" onClick={handleBtnClicked} >
+                         CONFIRM
+                    </button>
+                }   
             </div>
         </div>
     </center>
