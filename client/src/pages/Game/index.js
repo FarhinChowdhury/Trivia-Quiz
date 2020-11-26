@@ -6,30 +6,39 @@ import './Game.css'
 import correctSound from '../../components/assets/correct.mp3';
 import incorrectSound from '../../components/assets/incorrect.mp3';
 import API from '../../utils/API';
+import Timer from '../../components/Timer';
 import globalContext from '../../utils/globalContext';
 
 
 function Game(){
 
-    const {select, mode, score, setValue} = useContext(globalContext);
+    const {category, mode, score, setValue} = useContext(globalContext);
+    // questions & choices: for storing ALL questions and their respective choices
+    // correctAns: for storing correct answer for ALL questions
     const [questions, setQuestions] = useState([]);
     const [choices, setChoices] = useState([]);
+    const [correctAns, setCorrectAns] = useState(['']);
+    // choice: for storing user's choice
     const [choice, setChoice] = useState('');
-
-    const [isConfirm, setIsConfirm] = useState('');
+    const [isConfirm, setIsConfirm] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
-    const [correctAns, setCorrectAns] = useState([]);
+    // displayQuestion & displayChoices: for setting question and its choices on screen
     const [displayQuestion, setDisplayQuestion] = useState('');
     const [displayChoices, setDisplayChoices] = useState([]);
+    // for playing sound effect
+    const [playCorrect] = useSound(correctSound, {volume: 0.25});
+    const [playInCorrect] = useSound(incorrectSound, {volume: 0.25});
 
+    // for iterating through questions and choices
     const [index, setIndex] = useState(0);
 
     useEffect(function(){
+        console.log(category, mode);
         getQuestions();
     }, []);
 
     async function getQuestions(){
-        const response = await API.getQuestions(select, mode);
+        const response = await API.getQuestions(category, mode).catch(err => console.log(err));
         let questions = [];
         let choices = [];
         let corAnswers = [];
@@ -39,15 +48,19 @@ function Game(){
             choices.push(item.incorrect_answers);
             corAnswers.push(item.correct_answer);
         });
+        // storing master question set and choices set
         setQuestions(questions);
         setChoices(choices);
+        // storing the correct answer for each question
         setCorrectAns(corAnswers);
+        // displaying the first question and first set of choices
         setDisplayQuestion(questions[index]);
         if(choices[index].length !== 4) setDisplayChoices(['True', 'False']);
         else setDisplayChoices(shuffleArray(choices[index]));
     }
 
-    const shuffleArray = function(array) {
+    // for randomize the choices
+    function shuffleArray(array) {
         const a = array.slice();
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -55,9 +68,6 @@ function Game(){
         }
         return a;
     };
-
-    const [playCorrect] = useSound(correctSound, {volume: 0.25});
-    const [playInCorrect] = useSound(incorrectSound, {volume: 0.25});
 
     function handleBtnClicked(event){
         const name = event.target.name;
@@ -70,27 +80,29 @@ function Game(){
                 break;
             }
             case 'confirm': {
+                if(choice === '') break;
                 // check if answer is correct and trigger indicator
                 if(choice === correctAns[index]) {
-                    console.log('Right answer');
-                    setIsConfirm(true);
                     setValue('score', score + 1);
                     playCorrect();
                 }
                 else {
-                    setIsConfirm(false);
                     playInCorrect();
-                }          
+                }
+                setIsConfirm(true);
                 // load next question 
                 if(index !== questions.length - 1){
-                    setDisplayQuestion(questions[index + 1]);
-                    if(choices[index].length !== 4) setDisplayChoices(['True', 'False']);
-                    else setDisplayChoices(shuffleArray(choices[index]));
-                    setIndex(index + 1)
+                    const timer = setTimeout(() => {
+                        setDisplayQuestion(questions[index + 1]);
+                        if(choices[index + 1].length !== 4) setDisplayChoices(['True', 'False']);
+                        else setDisplayChoices(shuffleArray(choices[index + 1]));
+                        setIndex(index + 1);
+                        clearTimeout(timer);
+                        setIsClicked(false);
+                        setIsConfirm(false);
+                        setChoice('');
+                    },1000);
                 }
-                setIsClicked(false);
-                setIsConfirm('');
-                setChoice('');
                 break;
             }
             default: break;
@@ -99,6 +111,7 @@ function Game(){
 
     return(
     <center>
+        <Timer />
         <div className="container">
             <div className="card" id = "questionCard">
                 <h3 style={{borderBottom: "2px rgba(255, 119, 0, 0.817) solid"}}>{index+1}. {he.decode(displayQuestion)}</h3>
@@ -113,6 +126,7 @@ function Game(){
                     )}
                 </div>
                 <span className="badge badge-dark" style={isClicked ? {display: "block"} : {display: "none"}}>Selected: {he.decode(choice)}</span>
+                <span className="badge badge-success" style={isConfirm ? {display: "block"} : {display: "none"}}>Correct Answer: {he.decode(correctAns[index])}</span>
                 <hr />
                 {index === questions.length - 1 ?
                     <NavLink to='/score' className="enterBtn">            
