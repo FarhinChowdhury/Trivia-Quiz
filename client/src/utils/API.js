@@ -25,14 +25,13 @@ export default {
     loginUser: function(userData){
         return axios.post('/api/user/auth', {data: userData});
     },
-    getQuestions: function(category, mode){
-        const token = getAPIToken();
+    getQuestions: async function(category, mode){
+        const token = await getAPIToken();
         let questions = [];
         if (mode === 'ta') {
             return new Promise((resolve, reject) => {
             axios.get('https://opentdb.com/api.php?amount=50' + (category ? `&category=${category}` : ''))
                 .then(function (res) {
-                    // console.log('[getQuestions](TA)', res);
                     if (res.data.response_code!==0) reject(res.data.response_code);
                     questions.push(...res.data.results);
                     resolve(questions);
@@ -42,7 +41,6 @@ export default {
             return new Promise((resolve, reject) => {
             axios.get('https://opentdb.com/api.php?amount=10&difficulty=easy' + (category ? `&category=${category}` : '') + `&token=${token}`)
                  .then(function (res) {
-                    // console.log('[getQuestions](LVL)', res);
                     if (res.data.response_code!==0) reject(res.data.response_code);
                     questions.push(...res.data.results);
                     axios.get('https://opentdb.com/api.php?amount=10&difficulty=medium' + (category ? `&category=${category}` : '') + `&token=${token}`)
