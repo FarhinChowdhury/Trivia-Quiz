@@ -4,7 +4,7 @@ function Category(props){
 
     return (
     <>
-        <select name="category" value={props.category} onChange={props.handleSelector}>
+        <select name="category" onChange={props.handleSelector}>
             <option value="">Anything</option>
             <option value="9">General Knowledge</option>
             <option value="10">Books</option>

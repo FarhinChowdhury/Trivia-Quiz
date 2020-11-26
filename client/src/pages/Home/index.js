@@ -6,7 +6,7 @@ import globalContext from '../../utils/globalContext';
 
 function Home(){
     
-    const {setValue} = useContext(globalContext);
+    const {updateData} = useContext(globalContext);
 
     const [category, setCategory] = useState('');
     const [mode, setMode] = useState('');
@@ -23,8 +23,7 @@ function Home(){
     }
 
     function handleBtnClick(){
-        setValue('category', category);
-        setValue('mode', mode);
+        updateData(category, mode);
     }
 
     return (
@@ -36,7 +35,7 @@ function Home(){
                 <div className="card" id="gameCategory">
                     <div className="cardHeader" style={{height: "50px", fontSize: "1.6rem", color: "azure", padding: "10px", backgroundColor: "rgba(43, 79, 133, 0.954)"}}>
                         Select Category:
-                        <Category value={category} handleSelector={handleSelector} />
+                        <Category handleSelector={handleSelector} />
                     </div>
                     <hr/>
                     <div className="cardBody" style= {{height: "40px", margin: "10px"}} >

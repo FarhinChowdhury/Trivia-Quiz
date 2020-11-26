@@ -15,8 +15,10 @@ function App() {
     score: 0,
     totalScore: 0,
     setValue: (name, value) =>{
-      console.log(name, value);
       setData({...data, [name]: value});
+    },
+    updateData: (category, mode) => {
+      setData({...data, category, mode});
     }
   });
 
