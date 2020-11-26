@@ -34,14 +34,14 @@ module.exports = {
     updateScoreTA: function (req, res) {
         userData
         .findOneAndUpdate ({username: req.body.data.username}, {highscore_TA: req.body.data.highscore_TA})
-        .then ( data => res.json(data))
+        .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
     },
 
     updateScoreLVL: function (req, res) {
         userData
         .findOneAndUpdate ({username: req.body.data.username}, {highscore_LVL: req.body.data.highscore_LVL})
-        .then ( data => res.json(data))
+        .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
     },
 }
