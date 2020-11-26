@@ -170,12 +170,43 @@
        
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
         text-decoration: none !important;
-        -webkit-transition: all .2s linear;
-        color:antiquewhite;
+ç        color:antiquewhite;
         border:1px rgb(28, 49, 131) solid;
         margin:10px;
 
     }
+    #profileCard{
+        background-color:rgba(12, 12, 78, 0.664);
+        color:antiquewhite;
+        margin:20px;
+        border:2px rgba(255, 119, 0, 0.817) solid ;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+        -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+        box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+       
+        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
+        text-decoration: none !important;
+        margin-top:100px;
+        animation: fadeIn; /*referring directly to the animation's @keyframe declaration */
+        animation-duration: .9s;
+
+    }
+    #profDesc{
+        border:2px rgba(255, 119, 0, 0.817) solid ;
+        border-radius: 10px;
+        background-color:rgba(54, 29, 147, 0.817);
+        color:antiquewhite;
+        
+
+    }
+    #profImg{
+        border:2px rgba(255, 119, 0, 0.817) solid ;
+        border-radius: 10px;
+        margin-bottom:20px;
+
+    }
+
 </style>
 <body>
     <nav class="navbar">
@@ -190,43 +221,33 @@
           </ul>
     </nav>
     <div class="container">
-        <div class="row" style="margin-top: 100px;">
-            <div class="col-lg-8">
-                <div class="card animate__animated animate__fadeInDown" id="userScore" style="padding-bottom:20px;animation-duration: 2s;">
-                    <h1>Your Score:</h1>
-                    <center>
-
-                        <div class=" card currentScore">
-                            20/50
-                            
-                        </div>
-
-                        <hr/>
-
-                        <h3>Highest Score:</h3>    
-                        <div class=" card highScore" style="margin:10px;">
-                            30/50
-
-                        </div>
-                    </center>
-                </div>
-
+        <div class="card fade-In" id="profileCard">
+            <div class="card-header">
+                <h3>PROFILE:</h3>
             </div>
-            <div class="col-lg-4">
-                <div class="card" id ="scoreBoard"style="margin:10px;">
-                    <h5 style="margin-top: 10px;">Leader Board:</h5>
-                    <div class="card leaderList" >
-                        <div style="margin:10px;">
-                            <p style="float:left;">UserName</p><p style="float:right;">Score</p>
-                            <hr style="border-bottom:1px rgba(255, 119, 0, 0.817) dotted;!important ">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <center>
+                            <img id ="profImg"src="https://via.placeholder.com/200" alt="placeholder"/>
+                        </center>
+                        
+
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card" id="profDesc">
+                            <div style="margin:15px;">
+                                <h6>Name: FarhinChowdhury</h6>
+
+                                <h6>Higest Score:</h6>
+                                <h6>Decription: LOREMSDFJSDFSLF;SJD S;F;lJA;LJlkjlksdjfs;ldkfjsk Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate hic dolor quam voluptatum fugit, aliquam omnis unde excepturi iusto nobis alias a sint accusantium rem suscipit nostrum odit possimus atque!</h6>
+                            </div>
                         </div>
-                    
                     </div>
                 </div>
-                <button id="re-play" class="btn btn-lg">
-                    <i  class="fas fa-2x fa-redo"></i>
-                </button>
             </div>
+
+
         </div>
     </div>
 
