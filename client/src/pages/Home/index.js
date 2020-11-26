@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {NavLink} from 'react-router-dom';
 import './Home.css';
 import Category from '../../components/Category';
@@ -8,27 +8,23 @@ function Home(){
     
     const {setValue} = useContext(globalContext);
 
+    const [category, setCategory] = useState('');
+    const [mode, setMode] = useState('');
+
     function handleSelector(event){
         const name = event.target.name;
         const value = event.target.value;
         console.log(`[name]: ${name}; [value]: ${value}`)
         switch(name){
-            case 'category': setValue('select', value); break;
-            case 'mode': {
-                setValue('mode', value); 
-                if(value === 'lvl') setValue('totalScore', 30);
-                break;
-            }
-            default: {
-                setValue('select', ''); 
-                setValue('mode', 'ta'); 
-                break;
-            }
+            case 'category': setCategory(value); break;
+            case 'mode': setMode(value); break;
+            default: break;
         }
     }
 
-    function handleBtnClick(event){
-        console.log(event);
+    function handleBtnClick(){
+        setValue('category', category);
+        setValue('mode', mode);
     }
 
     return (
@@ -40,17 +36,17 @@ function Home(){
                 <div className="card" id="gameCategory">
                     <div className="cardHeader" style={{height: "50px", fontSize: "1.6rem", color: "azure", padding: "10px", backgroundColor: "rgba(43, 79, 133, 0.954)"}}>
                         Select Category:
-                        <Category handleSelector={handleSelector} />
+                        <Category value={category} handleSelector={handleSelector} />
                     </div>
                     <hr/>
-                    <div clas="cardBody" style= {{height: "40px", margin: "10px"}} >
-                        <label className="category" htmlFor="ta" >Time Attack</label>
+                    <div className="cardBody" style= {{height: "40px", margin: "10px"}} >
+                        <label className="mode">Time Attack</label>
                         <input name='mode' type="Checkbox" value="ta" onChange={handleSelector} />
-                        <label className="category" htmlFor="lvl" >Levels</label>
+                        <label className="mode" >Levels</label>
                         <input name='mode' type="Checkbox" value="lvl" onChange={handleSelector} />
                     </div>
                 </div>
-                <NavLink to='/game'><button className="btn btn-lg btn-primary" id="startButton" onClick={handleBtnClick}>Start</button></NavLink>
+                <NavLink to='/game'><button className="btn btn-lg btn-primary" id="startButton" onClick={handleBtnClick} disabled={mode !== "" ? false : true}>Start</button></NavLink>
             </center>
         </div>
     );
