@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import Home from './pages/Home';
+import Game from './pages/Game';
 import Navbar from './components/NavBar';
 import globalContext from './utils/globalContext';
 
@@ -24,6 +25,7 @@ function App() {
         <Navbar />
         <Route exact path='/' component={Home} />
         <Route exact path='/home' component={Home} />
+        <Route exact path='/game' component={Game} />
       </Router>
     </globalContext.Provider>
   );
