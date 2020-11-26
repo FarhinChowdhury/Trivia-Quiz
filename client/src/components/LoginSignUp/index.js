@@ -35,19 +35,19 @@ function LoginSignUp(props) {
       <form className="d-flex flex-column" onSubmit={submitThenNavigate}>
         {props.action==='SignUp' &&
           <>
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             <input className="mb-3" type="text" id="email" name="email" placeholder="email"
                    value={props.formInfo.email} onChange={props.handleChange} />
           </>
         }
-        <label htmlFor="username">username</label>
+        <label htmlFor="username">Username</label>
         <input className="mb-3" type="text" id="username" name="username" placeholder="username"
                value={props.formInfo.username} onChange={props.handleChange} />
-        <label htmlFor="password">password (8+ characters)</label>
+        <label htmlFor="password">Password (8+ characters)</label>
         <input className="mb-3" type="password" id="password" name="password" placeholder="password"
                value={props.formInfo.password} onChange={props.handleChange} />
-        <button className="mb-2" type="submit" disabled={disableSubmit}>{props.action}</button>
-        <button className="mb-2" type="button" onClick={()=>history.goBack()}>Cancel</button>
+        <button id= "signBtn"className="mb-2" type="submit" disabled={disableSubmit}>{props.action}</button>
+        <button id= "cancelBtn" className="mb-2" type="button" onClick={()=>history.goBack()}>Cancel</button>
         <p className="text-center font-weight-bold">{props.formInfo.error}</p>
         {switchOption}
       </form>
