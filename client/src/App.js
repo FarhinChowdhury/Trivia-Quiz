@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import Home from './pages/Home';
 import Game from './pages/Game';
+import Score from './pages/Score';
 import Navbar from './components/NavBar';
 import globalContext from './utils/globalContext';
 
@@ -29,7 +30,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/home' component={Home} />
         <Route exact path='/game' component={Game} />
-        {/* <Route exact path='/score' component={Score} /> */}
+        <Route exact path='/score' component={Score} />
       </Router>
     </globalContext.Provider>
   );
