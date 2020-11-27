@@ -17,13 +17,16 @@ export default {
         return axios.get('/api/highscore/' + selector);
     },
     updateHighscore: function(data, username){
-        return axios.put('/api/user/' + username, {data: data});
+        return axios.put('/api/highscore/' + username, {data: data});
     },
     createUser: function(userData){
         return axios.post('/api/user', {data: userData});
     },
     loginUser: function(userData){
         return axios.post('/api/user/auth', {data: userData});
+    },
+    getUserData: function(username) {
+        return axios.get('/api/user/' + username);
     },
     getQuestions: async function(category, mode){
         const token = await getAPIToken();
