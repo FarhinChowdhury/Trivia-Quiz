@@ -15,7 +15,7 @@ function Profile(){
                                 <center>
                                     <img id ="profImg"src="https://via.placeholder.com/200" alt="placeholder"/>
                                 </center>
-                                
+                              
 
                             </div>
                             <div className="col-lg-8">
