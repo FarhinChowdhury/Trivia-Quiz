@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import Home from './components/Home';
-//import Game from './pages/Game';
+import Home from './pages/Home';
+import Game from './pages/Game';
+import Score from './pages/Score';
 import Navbar from './components/NavBar';
 import globalContext from './utils/globalContext';
 import LoginSignUp from "./components/LoginSignUp";
@@ -132,10 +133,10 @@ function App() {
         </Route>
         <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
         {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
-        <Route path='/' component={Home} />
-        {/* <Route exact path='/home' component={Home} /> */}
-        {/* <Route exact path='/game' component={Game} /> */}
-        {/* <Route exact path='/score' component={Score} /> */}
+        <Route exact path='/' component={Home} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/game' component={Game} />
+        <Route exact path='/score' component={Score} />
       </Router>
     </globalContext.Provider>
   );

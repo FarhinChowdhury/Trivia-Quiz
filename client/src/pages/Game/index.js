@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom';
 import useSound from 'use-sound';
 import he from 'he';
 import './Game.css'
-import correctSound from '../../components/assets/correct.mp3';
-import incorrectSound from '../../components/assets/incorrect.mp3';
+import correctSound from '../../assets/correct.mp3';
+import incorrectSound from '../../assets/incorrect.mp3';
 import API from '../../utils/API';
 import Timer from '../../components/Timer';
 import globalContext from '../../utils/globalContext';
