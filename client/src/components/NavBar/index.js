@@ -17,6 +17,10 @@ function NavBar(props){
                     : <NavLink to="/logout" className="nav-link" activeClassName="active">Logout</NavLink>
                   }
                 </li>
+                <li className="nav-item">
+                <NavLink to="/profile" className="nav-link" activeClassName="active">Profile</NavLink>
+                </li>
+                
           </ul>
         </nav>
 
