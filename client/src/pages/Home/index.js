@@ -6,7 +6,7 @@ import globalContext from '../../utils/globalContext';
 
 function Home(){
     
-    const {updateGameData} = useContext(globalContext);
+    const [data, dispatch] = useContext(globalContext);
 
     const [category, setCategory] = useState('');
     const [mode, setMode] = useState('');
@@ -23,7 +23,7 @@ function Home(){
     }
 
     function handleBtnClick(){
-        updateGameData(category, mode);
+        dispatch({type:'updateGameData', category, mode});
     }
 
     return (
