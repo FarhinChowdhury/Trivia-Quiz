@@ -28,6 +28,10 @@ let userSchema = new Schema({
   highscore_LVL: {
     type: Number,
     default: 0
+  },
+  pic_url: {
+    type: String,
+    default: ''
   }
 });
 

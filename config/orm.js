@@ -13,10 +13,11 @@ async function passwordCompare(password, hashedPassword){
 }
 
 
-let orm = {
+const orm = {
 
-    createUser: function (req, res) {
-        req.body.data.password = passwordHash(req.body.data.password);
+    createUser: async function (req, res) {
+        req.body.data.password = await passwordHash(req.body.data.password);
+        console.log(req.body.data);
         userData
         .create(req.body.data)
         .then(data => res.send(data))
@@ -26,19 +27,17 @@ let orm = {
     loginUser: function (req, res) {
         userData
         .findOne ({username: req.body.username})
-        .then ((data) => {
-            if(passwordCompare(req.body.password, data.password)) res.send(data);
-            else {
-                alert('Incorrect username/password');
-                return false;
-            }
+        .then (async function(data) {
+            const isValid = await passwordCompare(req.body.password, data.password)
+            if(isValid) res.send(data);
+            else res.send({});
         })
         .catch(err => res.status(422).json(err));
     },
 
     getScoreTA: function (req, res) {
         userData
-        .findOne({username: req.body.username})
+        .findOne({username: req.body.data.username})
         .sort({highscore_TA: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -46,7 +45,7 @@ let orm = {
 
     getScoreLVL: function (req, res) {
         userData
-        .findOne({username: req.body.username})
+        .findOne({username: req.body.data.username})
         .sort({highscore_LVL: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -54,7 +53,7 @@ let orm = {
 
     updateHighscore: function (req, res){
         userData
-        .findOneAndUpdate({_id: req.params.id}, req.body.data)
+        .findOneAndUpdate({username: req.params.username}, req.body.data)
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
     },

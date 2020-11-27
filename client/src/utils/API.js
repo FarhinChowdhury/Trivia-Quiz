@@ -16,8 +16,8 @@ export default {
     getHighscore: function(selector){
         return axios.get('/api/highscore/' + selector);
     },
-    updateHighscore: function(data, id){
-        return axios.put('/api/user/' + id, {data: data});
+    updateHighscore: function(data, username){
+        return axios.put('/api/user/' + username, {data: data});
     },
     createUser: function(userData){
         return axios.post('/api/user', {data: userData});
