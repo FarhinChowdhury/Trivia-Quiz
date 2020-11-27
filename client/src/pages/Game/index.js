@@ -11,8 +11,8 @@ import globalContext from '../../utils/globalContext';
 
 
 function Game(){
-
-    const {category, mode, score, setValue} = useContext(globalContext);
+    const [data, dispatch] = useContext(globalContext);
+    const {category, mode, score} = data;
     // questions & choices: for storing ALL questions and their respective choices
     // correctAns: for storing correct answer for ALL questions
     const [questions, setQuestions] = useState([]);
@@ -35,6 +35,8 @@ function Game(){
     useEffect(function(){
         console.log(category, mode);
         getQuestions();
+        // reset score
+        dispatch({type: 'setValue', name: 'score', value: 0});
     }, []);
 
     async function getQuestions(){
@@ -83,7 +85,8 @@ function Game(){
                 if(choice === '') break;
                 // check if answer is correct and trigger indicator
                 if(choice === correctAns[index]) {
-                    setValue('score', score + 1);
+                    let newScore = score + 1;
+                    dispatch({type:'setValue', name: 'score', value: newScore});
                     playCorrect();
                 }
                 else {
