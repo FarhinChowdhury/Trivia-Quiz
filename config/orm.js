@@ -1,6 +1,6 @@
-const userData = require('../models/users.js')
+const userData = require('../models/users.js');
 
-module.exports = {
+let orm = {
 
     createUser: function (req, res) {
         userData
@@ -8,6 +8,7 @@ module.exports = {
         .then(userData => res.send(userData))
         .catch(err => console.log(err));
     },
+
     loginUser: function (req, res) {
         userData
         .findOne ({username: req.body.username})
@@ -45,3 +46,5 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 }
+
+module.exports = orm;

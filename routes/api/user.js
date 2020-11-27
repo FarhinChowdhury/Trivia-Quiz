@@ -1,25 +1,11 @@
 const router = require("express").Router();
-const { 
-    createUser,
-    loginUser,
-    getScoreTA,
-    getScoreLVL,
-    updateScoreTA,
-    updateScoreLVL
-} = require("../../config/orm");
+const orm = require("../../config/orm");
 
-
-router.post('/user', createUser);
-
-router.post('/user/auth', loginUser);
-
-router.get('/highscore/ta', getScoreTA);
-
-router.get('/highscore/lvl', getScoreLVL);
-
-router.put('/user/:id', updateScoreTA);
-
-router.put('/user/:id', updateScoreLVL);
-
+router.post('/user', orm.createUser);
+router.post('/user/auth', orm.loginUser);
+router.get('/highscore/ta', orm.getScoreTA);
+router.get('/highscore/lvl', orm.getScoreLVL);
+router.put('/user/:id', orm.updateScoreTA);
+router.put('/user/:id', orm.updateScoreLVL);
 
 module.exports = router;
