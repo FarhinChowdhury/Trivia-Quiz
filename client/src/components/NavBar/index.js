@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 function NavBar(props){
     return(
-        <nav className="navbar navebar-expand-lg">
+        <nav className="navbar navbar-expand-lg">
             <a className="navbar-brand" href="#" style={{color:"azure", fontSize:"1.7em"}}>E-LOGICAL</a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-rocket"></i>
