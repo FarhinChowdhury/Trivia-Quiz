@@ -1,13 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react'
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import {BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Home from "./components/Home";
+import Home from './components/Home';
+//import Game from './pages/Game';
+import Navbar from './components/NavBar';
+import globalContext from './utils/globalContext';
 import LoginSignUp from "./components/LoginSignUp";
 import Logout from "./components/Logout";
 import ProfilePic from "./components/ProfilePic";
 
 function App() {
+
+  const [data, setData] = useState({
+    username: '',
+    category: '',
+    mode: '',
+    score: 0,
+    totalScore: 0,
+    pic_url: '',
+    setValue: (name, value) =>{
+      setData({...data, [name]: value});
+    },
+    updateGameData: (category, mode) => {
+      setData({...data, category, mode});
+    },
+    updateUserData: (username, pic_url) => {
+      setData({...data, username, pic_url });
+    }
+  });
+
   let emptyUser = {username:'', highscore_TA:'', highscore_LVL:'', pic_url:''}
 
   // DEBUG API (until real API added)
@@ -25,14 +46,13 @@ function App() {
     }
   }
   // LOGIN FORM STATE AND FUNCTIONS
-
-  const [curUser, setCurUser] = useState(emptyUser);
   const [formInfo, setFormInfo] = useState({ username:'', password:'', email:'', error:'' });
   const [formAction, setFormAction] = useState('Login');
 
   useEffect(function(){
     if(localStorage.getItem('curUser')) {
-      setCurUser(JSON.parse(localStorage.getItem('curUser')));
+      let {username, pic_url} = JSON.parse(localStorage.getItem('curUser'));
+      data.updateUserData(username, pic_url);
     }
   }, []);
 
@@ -69,9 +89,9 @@ function App() {
         return false;
       }
     }
-    localStorage.setItem('curUser', JSON.stringify(res));
+    localStorage.setItem('curUser', JSON.stringify({username: res.username, pic_url: res.pic_url}));
     // Successful login/signup!
-    setCurUser(res);
+    data.updateUserData(res.username, res.pic_url);
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
     // Advance to game page by returning true
@@ -88,32 +108,36 @@ function App() {
   }
 
   function handleLogout() {
-    setCurUser(emptyUser);
+    data.updateUserData('','');
     localStorage.removeItem('curUser');
     setFormAction('Login');
   }
 
   function setProfilePicUrl(url) {
-    let updatedUser = {...curUser, pic_url: url};
-    localStorage.setItem('curUser', JSON.stringify(updatedUser));
-    setCurUser(updatedUser);
-    console.log('[setProfilePicUrl] user=', updatedUser);
+    localStorage.setItem('curUser', JSON.stringify({username: data.username, pic_url: url}));
+    //data.setValue('pic_url', url); // Doesn't work!???!!!
+    setData({...data, pic_url: url});
+    console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
   }
 
-  return(
-  <Router>
-    <div className="App">
-      <NavBar login={curUser.username===''} />
-      <Route path="/login">
-        <LoginSignUp action={formAction} handleClick={handleLoginFormType}
-                    formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
-      </Route>
-      <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
-      {curUser.username ? <ProfilePic src={curUser.pic_url} updatePic={setProfilePicUrl} /> : <></>}
-      <Home />
-    </div>
-  </Router>
-);
+  console.log(`[App] user=${data.username} pic=${data.pic_url}`);
+  return (
+    <globalContext.Provider value={data}>
+      <Router>
+        <Navbar login={data.username===''} />
+        <Route path="/login">
+          <LoginSignUp action={formAction} handleClick={handleLoginFormType}
+                      formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
+        </Route>
+        <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
+        {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
+        <Route path='/' component={Home} />
+        {/* <Route exact path='/home' component={Home} /> */}
+        {/* <Route exact path='/game' component={Game} /> */}
+        {/* <Route exact path='/score' component={Score} /> */}
+      </Router>
+    </globalContext.Provider>
+  );
 }
 
 export default App;
