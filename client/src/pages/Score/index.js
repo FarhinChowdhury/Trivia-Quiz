@@ -4,29 +4,42 @@ import API from '../../utils/API';
 import globalContext from '../../utils/globalContext';
 
 function Score(){
-
-    const {username, mode, score, totalScore} = useContext(globalContext);
+    const [data, dispatch] = useContext(globalContext);
+    const {username, mode, score, totalScore, highscore_LVL, highscore_TA} = data;
 
     const [userData, setUserData] = useState({});
     const [metaUser, setMetaUser] = useState([]);
 
     useEffect(function(){
         getUser();
-        getAllHighscore();
-    }, [])
+        getAllHighscore(mode);
+    }, [mode])
 
     async function getUser(){
         const response = await API.getUserData(username);
         setUserData(response.data);
+        console.log('[Score (getUser)]', response.data);
+        console.log(`[Score (getUser) score=${score} hTA=${highscore_TA} hLVL=${highscore_LVL}`);
+        if (mode==='ta') {
+          if (score > highscore_TA) {
+            dispatch({type: 'setValue', name: 'highscore_TA', value: score});
+            API.updateHighscore({highscore_TA: score}, username);
+          }
+        } else { // 'lvl' mode
+          if (score > highscore_LVL) {
+            dispatch({type: 'setValue', name: 'highscore_LVL', value: score});
+            API.updateHighscore({highscore_LVL: score}, username);
+          }
+        }
     }
 
     async function getAllHighscore(mode){
         const response = await API.getHighscore(mode);
         setMetaUser(response.data);
+        console.log('[Score (getAllHighscore)]', response.data);
     }
 
     return(
-        <body>
             <div className="container">
                 <div className="row" style={{marginTop: "100px"}}>
                     <div className="col-lg-8">
@@ -48,7 +61,7 @@ function Score(){
                                 <h3>Highest Score:</h3>
                                 {mode === 'ta' ?
                                     <div className=" card highScore">
-                                        {userData.highscore}
+                                        {userData.highscore_TA}
                                     </div>
                                     :
                                     <div className=" card currentScore">
@@ -79,7 +92,6 @@ function Score(){
                 </div>
             </div>
 
-        </body>
 
     )
 
