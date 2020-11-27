@@ -1,14 +1,11 @@
 const router = require("express").Router();
-const userController = require("../../controllers/userController");
+const orm = require("../../config/orm");
 
-router.get('/highscore/ta', userController.findAll);
-
-router.get('/highscore/lvl', userController.findAll);
-
-router.post('/user', userController.create);
-
-router.post('/user/auth', userController.check);
-
-router.put('/user/:id', userController.findOneAndUpdate);
+router.post('/user', orm.createUser);
+router.post('/user/auth', orm.loginUser);
+router.get('/highscore/ta', orm.getScoreTA);
+router.get('/highscore/lvl', orm.getScoreLVL);
+router.put('/user/:id', orm.updateScoreTA);
+router.put('/user/:id', orm.updateScoreLVL);
 
 module.exports = router;

@@ -1,26 +1,60 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from 'react'
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import {BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Home from "./components/Home";
+import Home from './components/Home';
+//import Game from './pages/Game';
+import Navbar from './components/NavBar';
+import globalContext from './utils/globalContext';
 import LoginSignUp from "./components/LoginSignUp";
 import Logout from "./components/Logout";
+import ProfilePic from "./components/ProfilePic";
 
 function App() {
+
+  const [data, setData] = useState({
+    username: '',
+    category: '',
+    mode: '',
+    score: 0,
+    totalScore: 0,
+    pic_url: '',
+    setValue: (name, value) =>{
+      setData({...data, [name]: value});
+    },
+    updateGameData: (category, mode) => {
+      setData({...data, category, mode});
+    },
+    updateUserData: (username, pic_url) => {
+      setData({...data, username, pic_url });
+    }
+  });
+
+  let emptyUser = {username:'', highscore_TA:'', highscore_LVL:'', pic_url:''}
+
   // DEBUG API (until real API added)
   const API = {
     createUser: function(data) {
       console.log('[createUser]', data);
+      return ({username: formInfo.username, highscore_TA: 10, highscore_LVL: 15, pic_url:''});
     },
     loginUser: function(data) {
       console.log('[loginUser]', data);
-      return Math.random()<0.8 ? {success: true} : {success: false};
+      let res =  Math.random()<0.8 
+        ? ({username: formInfo.username, highscore_TA: 10, highscore_LVL: 15, pic_url:''})
+        : emptyUser;
+      return res;
     }
   }
   // LOGIN FORM STATE AND FUNCTIONS
-  const [curUser, setCurUser] = useState('');
   const [formInfo, setFormInfo] = useState({ username:'', password:'', email:'', error:'' });
   const [formAction, setFormAction] = useState('Login');
+
+  useEffect(function(){
+    if(localStorage.getItem('curUser')) {
+      let {username, pic_url} = JSON.parse(localStorage.getItem('curUser'));
+      data.updateUserData(username, pic_url);
+    }
+  }, []);
 
   function handleLoginChange(evt) {
     let { name, value } = evt.target;
@@ -37,25 +71,27 @@ function App() {
       setFormInfo({...formInfo, error: 'Invalid email address!'});
       return false;
     }
+    let res;
     if (formAction==='SignUp') {
-      API.createUser({
+      res = API.createUser({
         username: formInfo.username,
         email: formInfo.email,
         password: formInfo.password
       });
     } else {
-      let res = API.loginUser({
+      res = API.loginUser({
         username: formInfo.username,
         password: formInfo.password
       });
       // Check success (TBD)
-      if (!res.success) {
+      if (!res.username) {
         setFormInfo({...formInfo, error: 'Invalid credentials!'});
         return false;
       }
     }
+    localStorage.setItem('curUser', JSON.stringify({username: res.username, pic_url: res.pic_url}));
     // Successful login/signup!
-    setCurUser(formInfo.username);
+    data.updateUserData(res.username, res.pic_url);
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
     // Advance to game page by returning true
@@ -72,23 +108,36 @@ function App() {
   }
 
   function handleLogout() {
-    setCurUser('');
+    data.updateUserData('','');
+    localStorage.removeItem('curUser');
     setFormAction('Login');
   }
 
-  return(
-  <Router>
-    <div className="App">
-      <NavBar login={curUser===''} />
-      <Route path="/login">
-        <LoginSignUp action={formAction} handleClick={handleLoginFormType}
-                    formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
-      </Route>
-      <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
-      <Home />
-    </div>
-  </Router>
-);
+  function setProfilePicUrl(url) {
+    localStorage.setItem('curUser', JSON.stringify({username: data.username, pic_url: url}));
+    //data.setValue('pic_url', url); // Doesn't work!???!!!
+    setData({...data, pic_url: url});
+    console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
+  }
+
+  console.log(`[App] user=${data.username} pic=${data.pic_url}`);
+  return (
+    <globalContext.Provider value={data}>
+      <Router>
+        <Navbar login={data.username===''} />
+        <Route path="/login">
+          <LoginSignUp action={formAction} handleClick={handleLoginFormType}
+                      formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
+        </Route>
+        <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
+        {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
+        <Route path='/' component={Home} />
+        {/* <Route exact path='/home' component={Home} /> */}
+        {/* <Route exact path='/game' component={Game} /> */}
+        {/* <Route exact path='/score' component={Score} /> */}
+      </Router>
+    </globalContext.Provider>
+  );
 }
 
 export default App;
