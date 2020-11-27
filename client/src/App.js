@@ -13,17 +13,23 @@ import globalContext from './utils/globalContext';
 
 function App() {
   const reducer = (state, action) => {
+    let newState;
     switch (action.type) {
       case "setValue":
-        return {...state, [action.name]: action.value };
+        newState = {...state, [action.name]: action.value };
+        break;
       case "updateGameData":
-        return {...state, category: action.category, mode: action.mode };
+        newState = {...state, category: action.category, mode: action.mode };
+        break;
       case "updateUserData":
-        return ({...state, username: action.username, pic_url: action.pic_url, 
-          highscore_TA: action.highscore_TA, highscore_LVL: action.highscore_LVL});
+        newState = {...state, username: action.username, pic_url: action.pic_url, 
+          highscore_TA: action.highscore_TA, highscore_LVL: action.highscore_LVL};
+          break;
       default:
         throw new Error(`Invalid action type: ${action.type}`);
     }
+    localStorage.setItem('curUser', JSON.stringify(newState));
+    return newState;
   }
   const [data, dispatch] = useReducer(reducer, { 
     username: '',
@@ -124,7 +130,6 @@ function App() {
   }
 
   function setProfilePicUrl(url) {
-    localStorage.setItem('curUser', JSON.stringify({...data, pic_url: url}));
     //data.setValue('pic_url', url); // Doesn't work!???!!!
     //setData({...data, pic_url: url});
     dispatch({type: 'setValue', name: 'pic_url', value: url});
