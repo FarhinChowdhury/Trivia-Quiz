@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useReducer} from 'react'
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import API from './utils/API';
@@ -11,30 +11,31 @@ import Logout from "./components/Logout";
 import ProfilePic from "./components/ProfilePic";
 import globalContext from './utils/globalContext';
 
-
 function App() {
-
-  const [data, setData] = useState({
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "setValue":
+        return {...state, [action.name]: action.value };
+      case "updateGameData":
+        return {...state, category: action.category, mode: action.mode };
+      case "updateUserData":
+        return ({...state, username: action.username, pic_url: action.pic_url, 
+          highscore_TA: action.highscore_TA, highscore_LVL: action.highscore_LVL});
+      default:
+        throw new Error(`Invalid action type: ${action.type}`);
+    }
+  }
+  const [data, dispatch] = useReducer(reducer, { 
     username: '',
     pic_url: '',
-    highscore_TA: '',
-    highscore_LVL: '',
+    highscore_TA: 0,
+    highscore_LVL: 0,
     category: '',
     mode: '',
     score: 0,
     totalScore: 0,
-    setValue: (name, value) =>{
-      setData({...data, [name]: value});
-    },
-    updateGameData: (category, mode) => {
-      console.log(data);
-      setData({...data, category, mode});
-    },
-    updateUserData: (username, pic_url, highscore_TA, highscore_LVL) => {
-      setData({...data, username, pic_url, highscore_TA, highscore_LVL});
-    }
   });
-
+  
   // let emptyUser = {username:'', highscore_TA:'', highscore_LVL:'', pic_url:''}
 
   // DEBUG API (until real API added)
@@ -57,8 +58,8 @@ function App() {
 
   useEffect(function(){
     if(localStorage.getItem('curUser')) {
-      let {username, pic_url} = JSON.parse(localStorage.getItem('curUser'));
-      data.updateUserData(username, pic_url);
+      let {username, pic_url, highscore_TA, highscore_LVL} = JSON.parse(localStorage.getItem('curUser'));
+      dispatch({ type: 'updateUserData', username, pic_url, highscore_TA, highscore_LVL });
     }
   }, []);
 
@@ -96,10 +97,10 @@ function App() {
         return false;
       }
     }
-    localStorage.setItem('curUser', JSON.stringify({username: res.data.username, pic_url: res.data.pic_url}));
+    localStorage.setItem('curUser', JSON.stringify(data));
     // Successful login/signup!
     // data.updateUserData(res.data.username, res.data.pic_url, res.data.highscore_TA, res.data.highscore_LVL);
-    setData({...data, username: res.data.username, pic_url: res.data.pic_url, highscore_TA: res.data.highscore_TA, highscore_LVL: res.data.highscore_LVL})
+    dispatch({type: 'updateUserData', username: res.data.username, pic_url: res.data.pic_url, highscore_TA: res.data.highscore_TA, highscore_LVL: res.data.highscore_LVL})
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
     // Advance to game page by returning true
@@ -116,21 +117,23 @@ function App() {
   }
 
   function handleLogout() {
-    data.updateUserData('','');
+    dispatch({ type: 'updateUserData', username:'', pic_url: '', 
+      highscore_TA: 0, highscore_LVL: 0});
     localStorage.removeItem('curUser');
     setFormAction('Login');
   }
 
   function setProfilePicUrl(url) {
-    localStorage.setItem('curUser', JSON.stringify({username: data.username, pic_url: url}));
+    localStorage.setItem('curUser', JSON.stringify({...data, pic_url: url}));
     //data.setValue('pic_url', url); // Doesn't work!???!!!
-    setData({...data, pic_url: url});
+    //setData({...data, pic_url: url});
+    dispatch({type: 'setValue', name: 'pic_url', value: url});
     console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
   }
 
-  console.log(`[App] user=${data.username} pic=${data.pic_url}`);
+  console.log(`[App] user=${data.username} pic=${data.pic_url} score=${data.score} hTA=${data.highscore_TA}`);
   return (
-    <globalContext.Provider value={data}>
+    <globalContext.Provider value={[data, dispatch]}>
       <Router>
         <Navbar login={data.username===''} />
         <Route path="/login">
@@ -138,20 +141,15 @@ function App() {
                       formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
         </Route>
         <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
-        {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
-<<<<<<< HEAD
+        {/* {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>} */}
         <Switch>
           <Route exact path='/game' component={Game} />
           <Route exact path='/score' component={Score} />
+          <Route exact path='/profile'>
+            <ProfilePic updatePic={setProfilePicUrl} />
+          </Route>
           <Route path='/' component={Home} />
         </Switch>
-=======
-        <Route exact path='/' component={Home} />
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/game' component={Game} />
-        <Route exact path='/score' component={Score} />
-        <Route exact path='/profile' component={ProfilePic} />
->>>>>>> fcabfc8e147cf934f88b1d8ad836e8bb6c2efc42
       </Router>
     </globalContext.Provider>
   );
