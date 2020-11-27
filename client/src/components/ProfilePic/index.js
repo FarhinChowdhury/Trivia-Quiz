@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import "./ProfilePic.css"
+import globalContext from '../../utils/globalContext';
 
 // Expecting props = { 
 //                      src: <url> // img url or '' if no profile pic exists
@@ -7,6 +8,8 @@ import "./ProfilePic.css"
 //                   }
 function ProfilePic(props) {
   let inputFile = useRef();
+  const [data, dispatch] = useContext(globalContext);
+  const {username, pic_url, highscore_TA, highscore_LVL} = data;
 
   function getAndResizeImg() {
     let fileReader = new FileReader();
@@ -104,8 +107,8 @@ function ProfilePic(props) {
               <div className="row">
                   <div className="col-lg-4">
                     <div classNameName="border border-info rounded float-right profile-pic p-2 m-2">
-                      <img src={props.src} alt="Upload a Profile Pic" />
-                      {props.src ? <></> : 
+                      <img src={pic_url} alt="Upload a Profile Pic" />
+                      {pic_url ? <></> :
                         <>
                           {/* <label htmlFor="uplaod">Browse:</label> */}
                       <input id="upload" name="upload" type="file" ref={inputFile} onChange={getAndResizeImg} />
@@ -116,9 +119,10 @@ function ProfilePic(props) {
                   </div>
                   <div className="col-lg-8">
                     <div className="card" id="profDesc">
-                      <div style="margin:15px;">
-                        <h6>Name: FarhinChowdhury</h6>
-                        <h6>Highest Score: </h6>
+                      <div style={{margin: '15px'}}>
+                        <h6>Name: {username}</h6>
+                        <h6>Highest Score Time Attack: {highscore_TA}</h6>
+                        <h6>Highest Score Level Mode: {highscore_LVL}</h6>
                       </div>
                     </div>
                   </div>
