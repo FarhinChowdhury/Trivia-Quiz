@@ -9,6 +9,7 @@ import LoginSignUp from "./components/LoginSignUp";
 import Logout from "./components/Logout";
 import ProfilePic from "./components/ProfilePic";
 
+
 function App() {
 
   const [data, setData] = useState({
