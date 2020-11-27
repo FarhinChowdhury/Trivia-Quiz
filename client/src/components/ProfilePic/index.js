@@ -95,7 +95,6 @@ function ProfilePic(props) {
   }
 
   return (
-    <body>
       <div className="container">
         <div className="card fade-In" id="profileCard">
           <div className="cardHeader">
@@ -128,7 +127,6 @@ function ProfilePic(props) {
         </div>
       </div>
 
-    </body>
 
 
 
