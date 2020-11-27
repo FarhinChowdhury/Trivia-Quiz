@@ -1,5 +1,5 @@
 body{
-    background-image: url(../../assets/project3_background.jpg);
+    background-image: url('../../assets/project3_background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: fill;
@@ -56,11 +56,13 @@ body{
     cursor: hand; 
     cursor: pointer;
 }
-.category{
+
+.mode{
     font-size:1.4rem;
     font-weight: bold;
     margin:3px;
 }
+
 hr{
     width:10px;
 }
