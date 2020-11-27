@@ -2,4 +2,41 @@
   position: absolute;
   top: 80px;
   right: 80px;
+  background-color: rgba(54, 29, 147, 0.632) !important;
+  border:1px rgba(255, 119, 0, 0.817) solid ;
+  border-radius: 10px;
+}
+#signBtn{
+  background-color: rgb(255, 119, 0);
+
+    -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
+    text-decoration: none !important;
+    -webkit-transition: all .2s linear;
+    color:antiquewhite;
+    border:1px rgb(28, 49, 131) solid;
+    font-weight: bold;
+
+  
+}
+
+#cancelBtn{
+  background-color: rgb(255, 25, 0);
+
+  -webkit-box-shadow: 0px 6px 0px #d0584b, 0px 3px 15px rgba(0,0,0,.4);
+  -moz-box-shadow: 0px 6px 0px #d0584b, 0px 3px 15px rgba(0,0,0,.4);
+  box-shadow: 0px 6px 0px #d0584b, 0px 3px 15px rgba(0,0,0,.4);
+
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
+  text-decoration: none !important;
+  -webkit-transition: all .2s linear;
+  color:antiquewhite;
+  border:1px rgb(28, 49, 131) solid;
+  font-weight: bold;
+
+
+
 }

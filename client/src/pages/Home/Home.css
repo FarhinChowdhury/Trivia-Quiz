@@ -16,16 +16,21 @@ body{
     font-size: 6rem;
     font-style: italic;
 }
-#gameCategory{
+.gameCategory{
     text-align: center;
     width:80%;
     height:100%;
     margin:20px;
     background: rgba(43, 79, 133, 0.338);
+    color:antiquewhite;
+    text-align: center;
+    margin:10px;width:85%;
+    -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 20px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+
+    -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0, 0, 0, 0.406);
+    border:2px rgba(255, 119, 0, 0.817) solid ;
     border-radius: 20px;
-    font-weight: bolder;
-    border:5px rgb(43, 79, 133) solid;
-    padding-bottom:30px;
 
 }
 #gameCategory .cardBody{
@@ -44,6 +49,7 @@ body{
     margin-bottom:600px;
     font-weight: bolder;
     font-size: 2rem;
+    margin-top:20px;
 
 }
 #startButton:hover{

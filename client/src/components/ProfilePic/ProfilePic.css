@@ -1,7 +1,36 @@
 .profile-pic {
   width: 220px;
   height: 220px;
+  border:2px rgba(255, 119, 0, 0.817) solid ;
+  border-radius: 10px;
+  margin-bottom:20px;
 }
 input {
   max-width: 100%;
+}
+
+#profileCard{
+  background-color:rgba(12, 12, 78, 0.664);
+  color:antiquewhite;
+  margin:20px;
+  border:2px rgba(255, 119, 0, 0.817) solid ;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+  -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+  box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
+  text-decoration: none !important;
+  margin-top:100px;
+  animation: fadeIn; /*referring directly to the animation's @keyframe declaration */
+  animation-duration: .9s;
+
+}
+#profDesc{
+  border:2px rgba(255, 119, 0, 0.817) solid ;
+  border-radius: 10px;
+  background-color:rgba(54, 29, 147, 0.817);
+  color:antiquewhite;
+
+
 }

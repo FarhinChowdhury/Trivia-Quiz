@@ -95,15 +95,45 @@ function ProfilePic(props) {
   }
 
   return (
-    <div className="border border-info rounded float-right profile-pic p-2 m-2">
-      <img src={props.src} alt="Upload a Profile Pic" />
-      {props.src ? <></> : 
-        <>
-          {/* <label htmlFor="uplaod">Browse:</label> */}
-          <input id="upload" name="upload" type="file" ref={inputFile} onChange={getAndResizeImg} />
-        </>
-      }
-    </div>
+    <body>
+      <div className="container">
+        <div className="card fade-In" id="profileCard">
+          <div className="cardHeader">
+              <h3>PROFILE:</h3>
+          </div>
+          <div className="cardBody">
+              <div className="row">
+                  <div className="col-lg-4">
+                    <div classNameName="border border-info rounded float-right profile-pic p-2 m-2">
+                      <img src={props.src} alt="Upload a Profile Pic" />
+                      {props.src ? <></> : 
+                        <>
+                          {/* <label htmlFor="uplaod">Browse:</label> */}
+                      <input id="upload" name="upload" type="file" ref={inputFile} onChange={getAndResizeImg} />
+                        </>
+                      }
+                    </div>
+
+                  </div>
+                  <div className="col-lg-8">
+                    <div className="card" id="profDesc">
+                      <div style="margin:15px;">
+                        <h6>Name: FarhinChowdhury</h6>
+                        <h6>Highest Score: </h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </body>
+
+
+
+
+   
   )
 }
 

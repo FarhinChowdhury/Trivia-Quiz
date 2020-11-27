@@ -139,11 +139,19 @@ function App() {
         </Route>
         <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
         {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
+<<<<<<< HEAD
         <Switch>
           <Route exact path='/game' component={Game} />
           <Route exact path='/score' component={Score} />
           <Route path='/' component={Home} />
         </Switch>
+=======
+        <Route exact path='/' component={Home} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/game' component={Game} />
+        <Route exact path='/score' component={Score} />
+        <Route exact path='/profile' component={ProfilePic} />
+>>>>>>> fcabfc8e147cf934f88b1d8ad836e8bb6c2efc42
       </Router>
     </globalContext.Provider>
   );
