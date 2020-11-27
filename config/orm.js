@@ -25,19 +25,28 @@ const orm = {
     },
 
     loginUser: function (req, res) {
+        console.log(`[loginUser] username=${req.body.data.username} password=${req.body.data.password}`);
         userData
-        .findOne ({username: req.body.username})
-        .then (async function(data) {
-            const isValid = await passwordCompare(req.body.password, data.password)
+        .findOne ({username: req.body.data.username})
+        .then (function(data) {
+            const isValid = bcrypt.compareSync(req.body.data.password, data.password)
+            console.log(`[loginUser] valid=${isValid} username=${req.body.data.username} password=${req.body.data.password}`);
             if(isValid) res.send(data);
             else res.send({});
         })
         .catch(err => res.status(422).json(err));
     },
 
+    getUser: function (req, res) {
+      userData
+      .findOne ({username: req.params.username})
+      .then (data => res.json(data))
+      .catch(err => res.status(422).json(err));
+    },
+
     getScoreTA: function (req, res) {
         userData
-        .findOne({username: req.body.data.username})
+        .find({})
         .sort({highscore_TA: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -45,7 +54,7 @@ const orm = {
 
     getScoreLVL: function (req, res) {
         userData
-        .findOne({username: req.body.data.username})
+        .find({})
         .sort({highscore_LVL: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -58,19 +67,20 @@ const orm = {
         .catch(err => res.status(422).json(err));
     },
 
-    updateScoreTA: function (req, res) {
+    updateScore: function (req, res) {
+        console.log('[updateHighscore] body=', req.params.username, req.body.data)
         userData
-        .findOneAndUpdate ({username: req.body.username}, {highscore_TA: req.body.highscore_TA})
+        .findOneAndUpdate ({username: req.params.username}, req.body.data)
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
     },
 
-    updateScoreLVL: function (req, res) {
-        userData
-        .findOneAndUpdate ({username: req.body.username}, {highscore_LVL: req.body.highscore_LVL})
-        .then (data => res.json(data))
-        .catch(err => res.status(422).json(err));
-    },
+    // updateScoreLVL: function (req, res) {
+    //     userData
+    //     .findOneAndUpdate ({username: req.body.username}, {highscore_LVL: req.body.highscore_LVL})
+    //     .then (data => res.json(data))
+    //     .catch(err => res.status(422).json(err));
+    // },
 
     updateProfilePic: function (req, res) {
       // console.log('[post /api/image] req.body=', req.body);
