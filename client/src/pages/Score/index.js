@@ -58,7 +58,7 @@ function Score(){
 
                                 <hr/>
 
-                                <h3>Highest Score:</h3>
+                                <h3>Your Highest Score:</h3>
                                 {mode === 'ta' ?
                                     <div className=" card highScore">
                                         {userData.highscore_TA}
@@ -77,10 +77,10 @@ function Score(){
                             <div className="card leaderList" >
                                 <div style={{margin:"10px"}}>
                                     {metaUser.map(user => 
-                                    <>
-                                        <p value ="userName"style={{float:"left"}}>{user.username}</p><p value="Score" style={{float: "right"}}>{mode === 'ta' ? user.highscore_TA : user.highscore_LVL}</p>
-                                        <hr style={{borderBottom: "1px rgba(255, 119, 0, 0.817) dotted"}}/>
-                                    </>
+                                    <div className="row">
+                                        <p className="col-6">{user.username}</p><p className="col-6">{mode === 'ta' ? user.highscore_TA : user.highscore_LVL}</p>
+                                        {/* <hr style={{borderBottom: "1px rgba(255, 119, 0, 0.817) dotted"}}/> */}
+                                    </div>
                                     )}
                                 </div>
                             </div>
