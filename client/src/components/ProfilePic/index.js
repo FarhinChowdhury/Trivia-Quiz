@@ -1,5 +1,6 @@
 import React, { useRef, useContext } from "react";
 import "./ProfilePic.css"
+import API from '../../utils/API';
 import globalContext from '../../utils/globalContext';
 
 // Expecting props = { 
@@ -62,21 +63,25 @@ function ProfilePic(props) {
     
             // Upload file to server
             let formData = new FormData();
+            formData.append('username', username);
             formData.append('profile_pic', profilePic);
             let settings = {
               method: 'post',
               body: formData
             }
             // TBD API
-            fetch('/api/image', settings)
-            .then(res => res.json())
-            .then(res => {
-              console.log('[post /api/image b] response=', res.pic_url);
-              props.updatePic(res.pic_url);
-            })
-            .catch(err => {
-              console.log('[post /api/image c] response=', err);
-            });
+            API.updateUserPic(formData)
+              .then(res => props.updatePic(res.data.pic_url))
+              .catch(err => console.log('[axios post /api/image] err=', err));
+            // fetch('/api/image', settings)
+            // .then(res => res.json())
+            // .then(res => {
+            //   console.log('[post /api/image b] response=', res.pic_url);
+            //   props.updatePic(res.pic_url);
+            // })
+            // .catch(err => {
+            //   console.log('[post /api/image c] response=', err);
+            // });
           })
       });
       image.src=event.target.result;
