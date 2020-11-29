@@ -92,14 +92,6 @@ function App() {
     setFormAction('Login');
   }
 
-  function setProfilePicUrl(url) {
-    //data.setValue('pic_url', url); // Doesn't work!???!!!
-    temp.pic_url = url; 
-    setData({...temp});
-    localStorage.setItem('curUser', JSON.stringify(temp));
-    console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
-  }
-
   console.log(`[App] user=${data.username} score=${data.score} highscore_TA=${data.highscore_TA} pic=${data.pic_url}`);
   return (
       <Router>
@@ -112,9 +104,7 @@ function App() {
         <Switch>
           <Route exact path='/game' component={Game} />
           <Route exact path='/score' component={Score} />
-          <Route exact path='/profile'>
-            <ProfilePic updatePic={setProfilePicUrl} />
-          </Route>
+          <Route exact path='/profile' component={ProfilePic} />
           <Route path='/' component={Home} />
         </Switch>
       </Router>
