@@ -1,21 +1,24 @@
 import React,{useState, useEffect, useContext} from 'react';
-import globalContext from '../utils/globalContext';
+import {useHistory} from 'react-router-dom';
+import {globalContext} from '../utils/globalContext';
 
 function Timer(){
 
-    const {mode} = useContext(globalContext);
+    const [data, setData] = useContext(globalContext);
 
-    const [timer, setTimer] = useState(90);
+    const [timer, setTimer] = useState(10); // 90
+
+    let history = useHistory();
 
     useEffect(function(){
-        if(mode === 'lvl') setTimer(60);
+        if(data.mode === 'lvl') setTimer(10); // 60
     }, []);
 
     useEffect(function(){
         const timerOut = setTimeout(() => {
             if(timer === 0) {
                 clearTimeout(timerOut);
-                window.location.href='/score';
+                history.push('/score');
                 return ;
             }
             setTimer(parseInt(timer) - 1);

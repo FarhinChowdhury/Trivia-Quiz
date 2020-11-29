@@ -7,12 +7,15 @@ import correctSound from '../../assets/correct.mp3';
 import incorrectSound from '../../assets/incorrect.mp3';
 import API from '../../utils/API';
 import Timer from '../../components/Timer';
-import globalContext from '../../utils/globalContext';
+import {globalContext} from '../../utils/globalContext';
 
 
 function Game(){
 
-    const {category, mode, score, setValue} = useContext(globalContext);
+    const [data, setData] = useContext(globalContext);
+    var temp = {...data};
+
+    // const {category, mode, score, setValue} = useContext(globalContext);
     // questions & choices: for storing ALL questions and their respective choices
     // correctAns: for storing correct answer for ALL questions
     const [questions, setQuestions] = useState([]);
@@ -33,12 +36,11 @@ function Game(){
     const [index, setIndex] = useState(0);
 
     useEffect(function(){
-        console.log(category, mode);
         getQuestions();
     }, []);
 
     async function getQuestions(){
-        const response = await API.getQuestions(category, mode).catch(err => console.log(err));
+        const response = await API.getQuestions(data.category, data.mode).catch(err => console.log(err));
         let questions = [];
         let choices = [];
         let corAnswers = [];
@@ -70,9 +72,9 @@ function Game(){
     };
 
     function handleBtnClicked(event){
+        event.preventDefault();
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name, value);
         switch(name){
             case 'choice': {
                 setChoice(value);
@@ -83,7 +85,7 @@ function Game(){
                 if(choice === '') break;
                 // check if answer is correct and trigger indicator
                 if(choice === correctAns[index]) {
-                    setValue('score', score + 1);
+                    temp.score++;
                     playCorrect();
                 }
                 else {
@@ -107,6 +109,7 @@ function Game(){
             }
             default: break;
         };
+        setData({...temp});
     }
 
     return(

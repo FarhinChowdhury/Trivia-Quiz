@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
 import API from './utils/API';
@@ -9,56 +9,23 @@ import Navbar from './components/NavBar';
 import LoginSignUp from "./components/LoginSignUp";
 import Logout from "./components/Logout";
 import ProfilePic from "./components/ProfilePic";
-import globalContext from './utils/globalContext';
-
+import {globalContext} from './utils/globalContext';
 
 function App() {
 
-  const [data, setData] = useState({
-    username: '',
-    pic_url: '',
-    highscore_TA: '',
-    highscore_LVL: '',
-    category: '',
-    mode: '',
-    score: 0,
-    totalScore: 0,
-    setValue: (name, value) =>{
-      setData({...data, [name]: value});
-    },
-    updateGameData: (category, mode) => {
-      console.log(data);
-      setData({...data, category, mode});
-    },
-    updateUserData: (username, pic_url, highscore_TA, highscore_LVL) => {
-      setData({...data, username, pic_url, highscore_TA, highscore_LVL});
-    }
-  });
+  const [data, setData] = useContext(globalContext);
+  var temp = {...data};
 
-  // let emptyUser = {username:'', highscore_TA:'', highscore_LVL:'', pic_url:''}
-
-  // DEBUG API (until real API added)
-  // const API = {
-  //   createUser: function(data) {
-  //     console.log('[createUser]', data);
-  //     return ({username: formInfo.username, highscore_TA: 10, highscore_LVL: 15, pic_url:''});
-  //   },
-  //   loginUser: function(data) {
-  //     console.log('[loginUser]', data);
-  //     let res =  Math.random()<0.8 
-  //       ? ({username: formInfo.username, highscore_TA: 10, highscore_LVL: 15, pic_url:''})
-  //       : emptyUser;
-  //     return res;
-  //   }
-  // }
-  // LOGIN FORM STATE AND FUNCTIONS
   const [formInfo, setFormInfo] = useState({ username:'', password:'', email:'', error:'' });
   const [formAction, setFormAction] = useState('Login');
 
   useEffect(function(){
     if(localStorage.getItem('curUser')) {
       let {username, pic_url} = JSON.parse(localStorage.getItem('curUser'));
-      data.updateUserData(username, pic_url);
+      // data.updateUserData(username, pic_url);
+      temp.username = username;
+      temp.pic_url = pic_url;
+      setData({...temp});
     }
   }, []);
 
@@ -99,7 +66,8 @@ function App() {
     localStorage.setItem('curUser', JSON.stringify({username: res.data.username, pic_url: res.data.pic_url}));
     // Successful login/signup!
     // data.updateUserData(res.data.username, res.data.pic_url, res.data.highscore_TA, res.data.highscore_LVL);
-    setData({...data, username: res.data.username, pic_url: res.data.pic_url, highscore_TA: res.data.highscore_TA, highscore_LVL: res.data.highscore_LVL})
+    temp.username = res.data.username; temp.pic_url = res.data.pic_url; temp.highscore_TA = res.data.highscore_TA; temp.highscore_LVL = res.data.highscore_LVL;
+    setData({...temp});
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
     // Advance to game page by returning true
@@ -116,7 +84,8 @@ function App() {
   }
 
   function handleLogout() {
-    data.updateUserData('','');
+    temp.username = ''; temp.pic_url = '';
+    setData({...temp});
     localStorage.removeItem('curUser');
     setFormAction('Login');
   }
@@ -124,13 +93,13 @@ function App() {
   function setProfilePicUrl(url) {
     localStorage.setItem('curUser', JSON.stringify({username: data.username, pic_url: url}));
     //data.setValue('pic_url', url); // Doesn't work!???!!!
-    setData({...data, pic_url: url});
+    temp.pic_url = url; 
+    setData({...temp});
     console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
   }
 
-  console.log(`[App] user=${data.username} pic=${data.pic_url}`);
+  console.log(`[App] user=${data.username} score=${data.score}`);
   return (
-    <globalContext.Provider value={data}>
       <Router>
         <Navbar login={data.username===''} />
         <Route path="/login">
@@ -138,22 +107,13 @@ function App() {
                       formInfo={formInfo} handleChange={handleLoginChange} handleSubmit={handleLoginSubmit} />
         </Route>
         <Route path="/logout"><Logout handleLogout={handleLogout} /></Route>
-        {data.username ? <ProfilePic src={data.pic_url} updatePic={setProfilePicUrl} /> : <></>}
-<<<<<<< HEAD
         <Switch>
           <Route exact path='/game' component={Game} />
           <Route exact path='/score' component={Score} />
+          <Route exact path='/profile' component={ProfilePic} />
           <Route path='/' component={Home} />
         </Switch>
-=======
-        <Route exact path='/' component={Home} />
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/game' component={Game} />
-        <Route exact path='/score' component={Score} />
-        <Route exact path='/profile' component={ProfilePic} />
->>>>>>> fcabfc8e147cf934f88b1d8ad836e8bb6c2efc42
       </Router>
-    </globalContext.Provider>
   );
 }
 
