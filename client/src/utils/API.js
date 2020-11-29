@@ -25,6 +25,9 @@ export default {
     loginUser: function(userData){
         return axios.post('/api/user/auth', {data: userData});
     },
+    updateUserPic: function(data) {
+      return axios.post('/api/image', data);
+    },
     getQuestions: async function(category, mode){
         const token = await getAPIToken();
         let questions = [];
