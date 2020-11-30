@@ -3,11 +3,14 @@ import {NavLink} from 'react-router-dom';
 import './Home.css';
 import Category from '../../components/Category';
 import {globalContext} from '../../utils/globalContext';
+import {useHistory} from 'react-router-dom';
 
 function Home(){
     
     const [data, setData] = useContext(globalContext);
     var temp = {...data};
+
+    let history = useHistory();
 
     const [category, setCategory] = useState('');
     const [mode, setMode] = useState('');
@@ -56,9 +59,14 @@ function Home(){
     }
 
     function handleBtnClick(){
-        temp.category = category; temp.mode = mode;
-        if(temp.mode === 'lvl') temp.totalScore = 30;
-        setData({...temp});
+        if (data.username==='') {
+            history.push('/login');
+        } else {
+            temp.category = category; temp.mode = mode;
+            if(temp.mode === 'lvl') temp.totalScore = 30;
+            setData({...temp});
+            history.push('/game');
+        }
     }
 
     return (
@@ -81,9 +89,7 @@ function Home(){
                                 style={btn2 ? {backgroundColor: 'rgba(0, 0, 133, 0.954)', color: 'white'} : {color:'white'}}>Levels</button>
                     </div>
                 </div>
-                <NavLink to='/game'>
-                    <button className="btn btn-lg btn-primary" id="startButton" onClick={handleBtnClick} disabled={mode !== "" ? false : true}>Start</button>
-                </NavLink>
+                <button className="btn btn-lg btn-primary" id="startButton" onClick={handleBtnClick} disabled={mode !== "" ? false : true}>Start</button>
             </center>   
         </div>
     );
