@@ -59,8 +59,10 @@ function App() {
         username: formInfo.username,
         password: formInfo.password
       });
-      // Check success (TBD)
+      // Check success
+      // console.log('[handleLoginSubmit]', res.data);
       if (!res.data.username) {
+        // console.log('[handleLoginSubmit] bad login');
         setFormInfo({...formInfo, error: 'Invalid credentials!'});
         return false;
       }
