@@ -1,0 +1,83 @@
+body{
+    background-image: url('../../assets/project3_background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    font-family: 'Courier New', Courier, monospace;
+    color:azure
+
+}
+
+.title{
+    text-align: center;
+    display:block;
+    color: azure;
+    /* margin:50px;
+    padding-top:200px; */
+    font-size: 6rem;
+    font-style: italic;
+}
+
+.cardHeader{
+    height: 50px;
+    font-size: 1.6rem;
+    color: azure;
+    padding: 10px;
+    background-color: rgba(43, 79, 133, 0.954);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#gameCategory{
+    text-align: center;
+    width:80%;
+    height:100%;
+    margin:20px;
+    background: rgba(43, 79, 133, 0.338);
+    color:antiquewhite;
+    text-align: center;
+    margin:10px;width:85%;
+    -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 20px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+
+    -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0, 0, 0, 0.406);
+    border:2px rgba(255, 119, 0, 0.817) solid ;
+    border-radius: 20px;
+
+}
+
+.cardBody{
+    background-color: rgba(43, 79, 133, 0.954);
+}
+
+#startButton{
+    background-color: rgb(255, 119, 0);
+    width:200px;
+    -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    text-decoration: none !important;
+    -webkit-transition: all .2s linear;
+    margin-bottom:600px;
+    font-weight: bolder;
+    font-size: 2rem;
+    margin-top:20px;
+
+}
+
+#startButton:hover{
+    cursor: hand; 
+    cursor: pointer;
+}
+
+.btn{
+    font-size:1.4rem;
+    font-weight: bold;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+hr{
+    width:10px;
+}

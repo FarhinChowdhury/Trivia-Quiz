@@ -1,0 +1,96 @@
+#questionCard{
+    transform: scale(0.65);
+    font-size: 2.5rem;
+    padding: 20px;
+    background-color:rgba(12, 12, 78, 0.664);
+    border:2px rgba(255, 119, 0, 0.817) solid ;
+    border-radius: 10px;
+    margin-top: -4%;
+    color:antiquewhite;
+    
+}
+.enterBtn{
+    background-color: rgb(255, 119, 0);
+    width:200px;
+    -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
+    float:right;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    text-decoration: none !important;
+}
+
+.diffBadge{
+    float: right;
+}
+
+@media screen and (max-width: 768px){
+    .timer{
+        margin-top: 5% !important;
+    }
+    #questionCard{
+        margin-top: -5% !important;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .timer{
+        margin-top: 7% !important;
+    }
+
+    #questionCard{
+        margin-top: -15% !important;
+    }
+
+    #question{
+        font-size: 25px;
+    }
+
+    .btn-outline-warning{
+        font-size: 25px !important;
+    }
+
+    .badge-dark{
+        font-size: 20px;
+    }
+
+    .badge-success{
+        font-size: 20px;
+    }
+    
+    .enterBtn{
+        font-size: 30px;
+        width: 150px
+    }
+}
+
+@media screen and (max-width: 320px){
+    .timer{
+        margin-top: 10% !important;
+    }
+
+    #questionCard{
+        margin-top: -25% !important;
+    }
+
+    #question{
+        font-size: 20px;
+    }
+
+    .enterBtn{
+        font-size: 20px;
+        width: 110px
+    }
+
+    .badge-dark{
+        font-size: 15px;
+    }
+
+    .badge-success{
+        font-size: 15px;
+    }
+
+    .btn-outline-warning{
+        font-size: 20px !important;
+    }
+}

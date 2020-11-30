@@ -1,0 +1,17 @@
+header {
+  background-color: rgba(238, 232, 170, 0.2);
+  border-bottom: 2px rgba(255, 119, 0, 0.817) solid ;
+}
+
+.e-header, .e-link {
+  color:azure;
+  font-weight: bold;
+}
+
+.e-link{
+  font-size:1.3rem;
+}
+
+.disabled {
+  color: grey;
+}
