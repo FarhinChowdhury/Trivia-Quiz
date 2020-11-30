@@ -19,8 +19,9 @@
     color:antiquewhite;
     border:1px rgb(28, 49, 131) solid;
     font-weight: bold;
-
-  
+}
+#signBtn:disabled {
+  background-color:#d0894b !important;
 }
 
 #cancelBtn{
