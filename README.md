@@ -9,25 +9,42 @@ E-Logical Trivia is an interactive trivia application developed with full stack 
 - [License](#license)
 
 ## Usage
-The user can create an account with username, email, and password and afterwards choose between two game modes: Time Attack where the user can answer as many questions before time runs out, or Levels where for every ten questions, the difficulty of the trivia rises. The user's score and highscore is displayed at the end of the trivia. The user's highest scores will then be updated on their profile page where they can also upload a profile picture. 
+The user can create an account with username, email, and password. Existing users can login.
+
+![signup screenshot](client/src/assets/signup_page.png)
+![login screenshot](client/src/assets/login_page.png)
+
+ Afterwards choose between two game modes: Time Attack where the user can answer as many questions before time runs out, or Levels where for every ten questions, the difficulty of the trivia rises. 
+ 
+ ![home page screenshot](client/src/assets/screenshot-trivia.jpg)
+
+ The user's score and highscore is displayed at the end of the trivia. 
+ 
+  ![score page screenshot](client/src/assets/score_page.png)
+
+ The user's highest scores will then be updated on their profile page where they can also upload a profile picture.
+
+  ![score page screenshot](client/src/assets/profile_page.png)
 
 ## Technologies
 * React
 * React-Router-Dom
 * Mongoose
 * Express
-* Multer
-* UUID
-* Axios
-* Bcrypt
 * JavaScript
-* JQuery
-* API
 * Bootstrap
 * CSS3
 * HTML5
 * Mongo Atlas
 * Heroku
+* API: [Open Trivia DB](https://opentdb.com/) 
+* Additional NPM Modules:
+  * Multer: Express middleware to process multipart/form-data. Used to enable upload of profile pics.
+  * UUID: Provide unique names for uploaded profile photos
+  * Axios: API Calls
+  * Bcrypt: Hash User Passwords
+  * HE: Decode HTML Entities (which were encoded in the questions from the API)
+  * Use-sound: Play sounds for indicating correct/wrong answers
 
 ## Contributing
 
