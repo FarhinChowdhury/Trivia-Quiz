@@ -37,6 +37,9 @@ function Game(){
 
     useEffect(function(){
         getQuestions();
+        // reset score for new game
+        temp.score = 0;
+        setData({...temp});
     }, []);
 
     async function getQuestions(){
