@@ -1,5 +1,5 @@
 # E-Logical Trivia
-![License](https://img.shields.io/badge/license-GPLv3-blue.svg "License Badge")
+![License](https://img.shields.io/badge/license-MIT-blue.svg "License Badge")
 ## Description
 E-Logical Trivia is an interactive trivia application developed with full stack web technologies using the [Open Trivia Database API](https://opentdb.com/) to generate the trivia questions.
 
