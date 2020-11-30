@@ -2,9 +2,15 @@
   position: absolute;
   top: 80px;
   right: 80px;
-  background-color: rgba(54, 29, 147, 0.632) !important;
+  background-color: rgba(54, 29, 147, 0.832) !important;
   border:1px rgba(255, 119, 0, 0.817) solid ;
   border-radius: 10px;
+  z-index: 2000;
+}
+@media only screen and (max-width: 500px) {
+  .login-signup {
+    right: 30px;
+  }
 }
 #signBtn{
   background-color: rgb(255, 119, 0);
@@ -19,8 +25,9 @@
     color:antiquewhite;
     border:1px rgb(28, 49, 131) solid;
     font-weight: bold;
-
-  
+}
+#signBtn:disabled {
+  background-color:#d0894b !important;
 }
 
 #cancelBtn{

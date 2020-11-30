@@ -1,21 +1,24 @@
 import React,{useState, useEffect, useContext} from 'react';
-import globalContext from '../utils/globalContext';
+import {useHistory} from 'react-router-dom';
+import {globalContext} from '../utils/globalContext';
 
 function Timer(){
 
-    const {mode} = useContext(globalContext);
+    const [data, setData] = useContext(globalContext);
 
-    const [timer, setTimer] = useState(90);
+    const [timer, setTimer] = useState(90); // 90
+
+    let history = useHistory();
 
     useEffect(function(){
-        if(mode === 'lvl') setTimer(60);
+        if(data.mode === 'lvl') setTimer(60); // 60
     }, []);
 
     useEffect(function(){
         const timerOut = setTimeout(() => {
             if(timer === 0) {
                 clearTimeout(timerOut);
-                window.location.href='/score';
+                history.push('/score');
                 return ;
             }
             setTimer(parseInt(timer) - 1);
@@ -23,16 +26,18 @@ function Timer(){
     }, [timer]);
 
     return (
-        <span style={{position: 'fixed',
-                      top: '100px',
-                      left: '46%',
-                      padding: '20px',
-                      fontWeight: 'bold', 
-                      backgroundColor: 'rgba(12, 12, 78, 0.664)',
-                      border: '2px rgba(255, 119, 0, 0.817) solid',
-                      borderRadius: '10px'}}>
-            Time: {timer}
-        </span>
+        <center>
+            <div className="container timer" style={{marginTop: '3%'}}>
+                <span style={{
+                        padding: '20px',
+                        fontWeight: 'bold', 
+                        backgroundColor: 'rgba(12, 12, 78, 0.664)',
+                        border: '2px rgba(255, 119, 0, 0.817) solid',
+                        borderRadius: '10px'}}>
+                    Time: {timer}
+                </span>
+            </div>
+        </center>
     );
 }
 

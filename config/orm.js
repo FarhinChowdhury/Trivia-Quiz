@@ -8,7 +8,7 @@ async function passwordHash(password){
 }
 
 async function passwordCompare(password, hashedPassword){
-    const isValidPassword = await bycrypt.compare(password.trim(), hashedPassword);
+    const isValidPassword = await bcrypt.compare(password.trim(), hashedPassword);
     return isValidPassword;
 }
 
@@ -26,9 +26,9 @@ const orm = {
 
     loginUser: function (req, res) {
         userData
-        .findOne ({username: req.body.username})
+        .findOne ({username: req.body.data.username})
         .then (async function(data) {
-            const isValid = await passwordCompare(req.body.password, data.password)
+            const isValid = await passwordCompare(req.body.data.password, data.password)
             if(isValid) res.send(data);
             else res.send({});
         })
@@ -37,7 +37,7 @@ const orm = {
 
     getScoreTA: function (req, res) {
         userData
-        .findOne({username: req.body.data.username})
+        .find({})
         .sort({highscore_TA: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -45,7 +45,7 @@ const orm = {
 
     getScoreLVL: function (req, res) {
         userData
-        .findOne({username: req.body.data.username})
+        .find({})
         .sort({highscore_LVL: -1})
         .then (data => res.json(data))
         .catch(err => res.status(422).json(err));
@@ -55,7 +55,7 @@ const orm = {
         userData
         .findOneAndUpdate({username: req.params.username}, req.body.data)
         .then (data => res.json(data))
-        .catch(err => res.status(422).json(err));
+        .catch(err => console.log(err));
     },
 
     updateScoreTA: function (req, res) {
@@ -76,11 +76,11 @@ const orm = {
       // console.log('[post /api/image] req.body=', req.body);
       let picUrl = path.join('uploads', req.file.filename);
       console.log('[post /api/image] src=', picUrl);
-      res.json({pic_url: picUrl});
-      // userData
-      // .findOneAndUpdate ({username: req.body.username}, {pic_url: req.body.pic_url})
-      // .then (data => res.json(data))
-      // .catch(err => res.status(422).json(err));
+      // res.json({pic_url: picUrl});
+      userData
+      .findOneAndUpdate ({username: req.body.username}, {pic_url: picUrl}, {new: true})
+      .then (data => res.json(data))
+      .catch(err => res.status(422).json(err));
     },
 }
 

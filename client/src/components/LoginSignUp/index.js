@@ -20,9 +20,10 @@ function LoginSignUp(props) {
     <span className="font-weight-bold" style={{cursor: 'pointer'}} 
           onClick={props.handleClick}> {switchButtonText}</span></p>;
 
-  function submitThenNavigate(evt) {
+  async function submitThenNavigate(evt) {
     // console.log('[submitThenNavigate]');
-    if (props.handleSubmit(evt)) {
+    let loginStatus = await props.handleSubmit(evt);
+    if (loginStatus) {
       // console.log('[submitThenNavigate] (User logged in/Signed up)');
       // Redirect to Game page (TBD)
       // Redirect to Home page for now

@@ -7,12 +7,15 @@ import correctSound from '../../assets/correct.mp3';
 import incorrectSound from '../../assets/incorrect.mp3';
 import API from '../../utils/API';
 import Timer from '../../components/Timer';
-import globalContext from '../../utils/globalContext';
+import {globalContext} from '../../utils/globalContext';
 
 
 function Game(){
 
-    const {category, mode, score, setValue} = useContext(globalContext);
+    const [data, setData] = useContext(globalContext);
+    var temp = {...data};
+
+    // const {category, mode, score, setValue} = useContext(globalContext);
     // questions & choices: for storing ALL questions and their respective choices
     // correctAns: for storing correct answer for ALL questions
     const [questions, setQuestions] = useState([]);
@@ -33,12 +36,14 @@ function Game(){
     const [index, setIndex] = useState(0);
 
     useEffect(function(){
-        console.log(category, mode);
         getQuestions();
+        // reset score for new game
+        temp.score = 0;
+        setData({...temp});
     }, []);
 
     async function getQuestions(){
-        const response = await API.getQuestions(category, mode).catch(err => console.log(err));
+        const response = await API.getQuestions(data.category, data.mode).catch(err => console.log(err));
         let questions = [];
         let choices = [];
         let corAnswers = [];
@@ -70,9 +75,9 @@ function Game(){
     };
 
     function handleBtnClicked(event){
+        event.preventDefault();
         const name = event.target.name;
         const value = event.target.value;
-        console.log(name, value);
         switch(name){
             case 'choice': {
                 setChoice(value);
@@ -83,7 +88,7 @@ function Game(){
                 if(choice === '') break;
                 // check if answer is correct and trigger indicator
                 if(choice === correctAns[index]) {
-                    setValue('score', score + 1);
+                    temp.score++;
                     playCorrect();
                 }
                 else {
@@ -107,18 +112,23 @@ function Game(){
             }
             default: break;
         };
+        setData({...temp});
     }
 
     return(
-    <center>
+    <>
         <Timer />
         <div className="container">
             <div className="card" id = "questionCard">
-                <h3 style={{borderBottom: "2px rgba(255, 119, 0, 0.817) solid"}}>{index+1}. {he.decode(displayQuestion)}</h3>
+                <h3 id="question" style={{borderBottom: "2px rgba(255, 119, 0, 0.817) solid"}}>{index+1}. {he.decode(displayQuestion)}
+                 {index <= 10 && data.mode === 'lvl' ? <span className="badge badge-success diffBadge">Easy</span> : ""}
+                 {index <= 20 && index > 10 && data.mode === 'lvl' ? <span className="badge badge-warning diffBadge">Median</span> : ""}
+                 {index <= 30 && index > 20 && data.mode === 'lvl' ? <span className="badge badge-danger diffBadge">Hard</span> : ""}</h3>
                 <hr />
+
                 <div className="row" style={{padding: '10px'}}>
                     {displayChoices.map(choice =>
-                        <button type="button" className="btn btn-outline-warning col-6" name="choice" value={choice}
+                        <button type="button" className="btn btn-outline-warning col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" name="choice" value={choice}
                                 onClick={handleBtnClicked} key={displayChoices.indexOf(choice)}
                                 style={{padding: '30px', fontSize: '30px', fontWeight: 'bold', color: 'white', border: '2px rgba(255, 119, 0, 0.817) solid'}}>
                             {he.decode(choice)}
@@ -141,7 +151,7 @@ function Game(){
                 }   
             </div>
         </div>
-    </center>
+    </>
     )
 }
 
