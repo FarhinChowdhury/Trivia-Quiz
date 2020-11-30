@@ -76,9 +76,9 @@ function Home(){
                     {/* <hr style={{borderTop: '2px solid #d0894b', width: '100%'}}/> */}
                     <div className="btn-group" role="group" >
                         <button name="mode" type="button" className={btn1 ? "btn btn-dark" : "btn btn-outline-dark"} value="ta" onClick={handleSelector} 
-                                style={btn1 ? {backgroundColor: 'rgba(43, 79, 133, 0.954)', color: 'white'} : {color:'white'}}>Time Attack</button>
+                                style={btn1 ? {backgroundColor: 'rgba(0, 0, 133, 0.954)', color: 'white'} : {color:'white'}}>Time Attack</button>
                         <button name="mode" type="button" className={btn2 ? "btn btn-dark" : "btn btn-outline-dark"} value="lvl" onClick={handleSelector} 
-                                style={btn2 ? {backgroundColor: 'rgba(43, 79, 133, 0.954)', color: 'white'} : {color:'white'}}>Levels</button>
+                                style={btn2 ? {backgroundColor: 'rgba(0, 0, 133, 0.954)', color: 'white'} : {color:'white'}}>Levels</button>
                     </div>
                 </div>
                 <NavLink to='/game'>
