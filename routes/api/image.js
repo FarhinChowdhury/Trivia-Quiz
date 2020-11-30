@@ -8,7 +8,11 @@ const { updateProfilePic } = require("../../config/orm");
 // configure multer
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, path.join(__dirname, '../../client/build/uploads'));
+    if (process.env.NODE_ENV === "production") {
+      cb(null, path.join(__dirname, '../../client/build/uploads'));
+    } else {
+      cb(null, path.join(__dirname, '../../client/public/uploads'));
+    }
   },
   // By default, multer removes file extensions so let's add them back
   filename: function(req, file, cb) {
