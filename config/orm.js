@@ -74,7 +74,7 @@ const orm = {
 
     updateProfilePic: function (req, res) {
       // console.log('[post /api/image] req.body=', req.body);
-      let picUrl = path.join('uploads', req.file.filename);
+      let picUrl = path.join('./uploads', req.file.filename);
       console.log('[post /api/image] src=', picUrl);
       // res.json({pic_url: picUrl});
       userData
