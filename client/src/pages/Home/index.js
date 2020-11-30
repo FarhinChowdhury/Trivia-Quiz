@@ -71,14 +71,14 @@ function Home(){
 
     return (
         <div className="container">
-            <div className="title">
+            <div className="title m-2 pt-sm-5">
                 <h1 style = {{fontSize: "3rem", fontWeight: "bolder"}}>E-LOGICAL: TRIVIA</h1>
                 <h3 style = {{fontSize: "3rem", fontWeight: "bolder"}}>ARE YOU UP FOR THE CHALLENGE?</h3>
             </div>
             <center>
                 <div className="card" id="gameCategory">
-                    <div className="cardHeader" style={{borderBottom: '2px solid #d0894b', height: '65px'}}>
-                        Select Category:
+                    <div className="cardHeader" style={{borderBottom: '2px solid #d0894b', height: '100px'}}>
+                        Select Category:<br />
                         <Category handleSelector={handleSelector} />
                     </div>
                     {/* <hr style={{borderTop: '2px solid #d0894b', width: '100%'}}/> */}
