@@ -21,10 +21,12 @@ function App() {
 
   useEffect(function(){
     if(localStorage.getItem('curUser')) {
-      let {username, pic_url} = JSON.parse(localStorage.getItem('curUser'));
+      let {username, pic_url, highscore_TA, highscore_LVL} = JSON.parse(localStorage.getItem('curUser'));
       // data.updateUserData(username, pic_url);
       temp.username = username;
       temp.pic_url = pic_url;
+      temp.highscore_TA = highscore_TA;
+      temp.highscore_LVL = highscore_LVL;
       setData({...temp});
     }
   }, []);
@@ -57,17 +59,19 @@ function App() {
         username: formInfo.username,
         password: formInfo.password
       });
-      // Check success (TBD)
+      // Check success
+      // console.log('[handleLoginSubmit]', res.data);
       if (!res.data.username) {
+        // console.log('[handleLoginSubmit] bad login');
         setFormInfo({...formInfo, error: 'Invalid credentials!'});
         return false;
       }
     }
-    localStorage.setItem('curUser', JSON.stringify({username: res.data.username, pic_url: res.data.pic_url}));
     // Successful login/signup!
     // data.updateUserData(res.data.username, res.data.pic_url, res.data.highscore_TA, res.data.highscore_LVL);
     temp.username = res.data.username; temp.pic_url = res.data.pic_url; temp.highscore_TA = res.data.highscore_TA; temp.highscore_LVL = res.data.highscore_LVL;
     setData({...temp});
+    localStorage.setItem('curUser', JSON.stringify(temp));
     // Clear form fields
     setFormInfo({ username:'', password:'', email:'', error:'' });
     // Advance to game page by returning true
@@ -84,21 +88,13 @@ function App() {
   }
 
   function handleLogout() {
-    temp.username = ''; temp.pic_url = '';
+    temp.username = ''; temp.pic_url = ''; temp.highscore_TA = 0; temp.highscore_LVL = 0;
     setData({...temp});
     localStorage.removeItem('curUser');
     setFormAction('Login');
   }
 
-  function setProfilePicUrl(url) {
-    localStorage.setItem('curUser', JSON.stringify({username: data.username, pic_url: url}));
-    //data.setValue('pic_url', url); // Doesn't work!???!!!
-    temp.pic_url = url; 
-    setData({...temp});
-    console.log(`[setProfilePicUrl] user=${data.username} pic=${url}`);
-  }
-
-  console.log(`[App] user=${data.username} score=${data.score}`);
+  console.log(`[App] user=${data.username} score=${data.score} highscore_TA=${data.highscore_TA} pic=${data.pic_url}`);
   return (
       <Router>
         <Navbar login={data.username===''} />

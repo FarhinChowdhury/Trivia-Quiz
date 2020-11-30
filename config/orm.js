@@ -76,11 +76,11 @@ const orm = {
       // console.log('[post /api/image] req.body=', req.body);
       let picUrl = path.join('uploads', req.file.filename);
       console.log('[post /api/image] src=', picUrl);
-      res.json({pic_url: picUrl});
-      // userData
-      // .findOneAndUpdate ({username: req.body.username}, {pic_url: req.body.pic_url})
-      // .then (data => res.json(data))
-      // .catch(err => res.status(422).json(err));
+      // res.json({pic_url: picUrl});
+      userData
+      .findOneAndUpdate ({username: req.body.username}, {pic_url: picUrl}, {new: true})
+      .then (data => res.json(data))
+      .catch(err => res.status(422).json(err));
     },
 }
 
