@@ -3,6 +3,8 @@
 ## Description
 E-Logical Trivia is an interactive trivia application developed with full stack web technologies using the [Open Trivia Database API](https://opentdb.com/) to generate the trivia questions.
 
+See the deployed app here: [E-Logical Trivia App](https://vast-ocean-41089.herokuapp.com/)
+
 ## Table of Contents
 - [Usage](#usage)
 - [Contributing](#Contributing)
