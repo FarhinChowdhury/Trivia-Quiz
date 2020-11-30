@@ -32,7 +32,7 @@ function Score(){
             default: break;
         }
         setData({...temp});
-        localStorage.setItem('curUser', temp);
+        localStorage.setItem('curUser', JSON.stringify(temp));
     }, [])
 
     async function getAllHighscore(mode){
@@ -84,7 +84,6 @@ function Score(){
                                     {metaUser.map(user => 
                                       <div className="row">
                                         <p className="col-6">{user.username}</p><p className="col-6">{data.mode === 'ta' ? user.highscore_TA : user.highscore_LVL}</p>
-                                        {/* <hr style={{borderBottom: "1px rgba(255, 119, 0, 0.817) dotted"}}/> */}
                                       </div>
                                     )}
                                 </div>

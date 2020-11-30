@@ -116,15 +116,19 @@ function Game(){
     }
 
     return(
-    <center>
+    <>
         <Timer />
         <div className="container">
             <div className="card" id = "questionCard">
-                <h3 style={{borderBottom: "2px rgba(255, 119, 0, 0.817) solid"}}>{index+1}. {he.decode(displayQuestion)}</h3>
+                <h3 id="question" style={{borderBottom: "2px rgba(255, 119, 0, 0.817) solid"}}>{index+1}. {he.decode(displayQuestion)}
+                 {index <= 10 && data.mode === 'lvl' ? <span className="badge badge-success diffBadge">Easy</span> : ""}
+                 {index <= 20 && index > 10 && data.mode === 'lvl' ? <span className="badge badge-warning diffBadge">Median</span> : ""}
+                 {index <= 30 && index > 20 && data.mode === 'lvl' ? <span className="badge badge-danger diffBadge">Hard</span> : ""}</h3>
                 <hr />
+
                 <div className="row" style={{padding: '10px'}}>
                     {displayChoices.map(choice =>
-                        <button type="button" className="btn btn-outline-warning col-6" name="choice" value={choice}
+                        <button type="button" className="btn btn-outline-warning col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" name="choice" value={choice}
                                 onClick={handleBtnClicked} key={displayChoices.indexOf(choice)}
                                 style={{padding: '30px', fontSize: '30px', fontWeight: 'bold', color: 'white', border: '2px rgba(255, 119, 0, 0.817) solid'}}>
                             {he.decode(choice)}
@@ -147,7 +151,7 @@ function Game(){
                 }   
             </div>
         </div>
-    </center>
+    </>
     )
 }
 

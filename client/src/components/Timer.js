@@ -6,12 +6,12 @@ function Timer(){
 
     const [data, setData] = useContext(globalContext);
 
-    const [timer, setTimer] = useState(10); // 90
+    const [timer, setTimer] = useState(90); // 90
 
     let history = useHistory();
 
     useEffect(function(){
-        if(data.mode === 'lvl') setTimer(10); // 60
+        if(data.mode === 'lvl') setTimer(60); // 60
     }, []);
 
     useEffect(function(){
@@ -26,16 +26,18 @@ function Timer(){
     }, [timer]);
 
     return (
-        <span style={{position: 'fixed',
-                      top: '100px',
-                      left: '46%',
-                      padding: '20px',
-                      fontWeight: 'bold', 
-                      backgroundColor: 'rgba(12, 12, 78, 0.664)',
-                      border: '2px rgba(255, 119, 0, 0.817) solid',
-                      borderRadius: '10px'}}>
-            Time: {timer}
-        </span>
+        <center>
+            <div className="container timer" style={{marginTop: '3%'}}>
+                <span style={{
+                        padding: '20px',
+                        fontWeight: 'bold', 
+                        backgroundColor: 'rgba(12, 12, 78, 0.664)',
+                        border: '2px rgba(255, 119, 0, 0.817) solid',
+                        borderRadius: '10px'}}>
+                    Time: {timer}
+                </span>
+            </div>
+        </center>
     );
 }
 

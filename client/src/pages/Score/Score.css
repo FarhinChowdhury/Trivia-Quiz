@@ -17,9 +17,6 @@
     text-decoration: none !important;
     padding-bottom:20px;
     animation-duration: 2s;
-
-
-
 }
 
 #scoreBoard{
@@ -32,9 +29,7 @@
     box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
 
     -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0, 0, 0, 0.406);
-    margin:10px;
-
-
+    margin:20px;
 }
 
 .currentScore{
@@ -59,10 +54,10 @@
     margin:10px;width:85%;
     -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 20px rgba(0,0,0,.4);
     box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
-
     -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0, 0, 0, 0.406);
     margin:10px;
 }
+
 .leaderList{
     border:2px rgba(255, 119, 0, 0.817) solid ;
     border-radius: 10px;
@@ -70,21 +65,54 @@
     color:antiquewhite;
     text-align: center;
     margin:10px;
-
-
 }
+
 #re-play{
     background-color: rgb(255, 119, 0);
-
     -webkit-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
     -moz-box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
     box-shadow: 0px 6px 0px #d0894b, 0px 3px 15px rgba(0,0,0,.4);
-   
     text-shadow: 0 2px 2px rgba(0, 0, 0, 0.728);
     text-decoration: none !important;
-    -webkit-transition: all .2s linear;
     color:antiquewhite;
     border:1px rgb(28, 49, 131) solid;
     margin:10px;
+}
 
+@media screen and (max-width: 768px){
+    #userScore{
+        font-size: 3rem !important;
+    }
+
+    #userScore h1{
+        font-size: 2rem !important;
+    }
+}
+
+@media screen and (max-width: 576px){
+    #userScore{
+        font-size: 2rem !important;
+    }
+
+    #userScore h1{
+        font-size: 2rem !important;
+    }
+
+    #userScore h3{
+        font-size: 20px !important;
+    }
+}
+
+@media screen and (max-width: 320px){
+    #userScore{
+        font-size: 2rem !important;
+    }
+
+    #userScore h1{
+        font-size: 2rem !important;
+    }
+
+    #userScore h3{
+        font-size: 15px !important;
+    }
 }
