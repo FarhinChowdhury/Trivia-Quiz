@@ -20,7 +20,7 @@ function Home(){
     function handleSelector(event){
         const name = event.target.name;
         const value = event.target.value;
-        console.log(`[name]: ${name}; [value]: ${value}`)
+        //console.log(`[Home] [name]: ${name}; [value]: ${value}`)
         switch(name){
             case 'category': setCategory(value); break;
             case 'mode': {
