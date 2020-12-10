@@ -12,7 +12,7 @@ function Score(){
     const [metaUser, setMetaUser] = useState([]);
 
     useEffect(function(){
-        console.log(data.mode);
+        // console.log(data.mode);
         getAllHighscore(data.mode);
         switch(data.mode){
             case 'ta':{

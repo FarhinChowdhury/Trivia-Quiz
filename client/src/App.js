@@ -94,7 +94,7 @@ function App() {
     setFormAction('Login');
   }
 
-  console.log(`[App] user=${data.username} score=${data.score} highscore_TA=${data.highscore_TA} pic=${data.pic_url}`);
+  // console.log(`[App] user=${data.username} score=${data.score} highscore_TA=${data.highscore_TA} pic=${data.pic_url}`);
   return (
       <Router>
         <Navbar login={data.username===''} />

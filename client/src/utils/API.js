@@ -8,7 +8,7 @@ async function getAPIToken(){
 
 function resetAPIToken(token){
     axios.get('https://opentdb.com/api_token.php?command=reset&token=' + token)
-         .then(res => res.data.response_code !== 0 ? console.log('Token reset failed') : console.log('Token reset successful'))
+        //  .then(res => res.data.response_code !== 0 ? console.log('Token reset failed') : console.log('Token reset successful'))
          .catch(err => console.log(err));
 }
 
