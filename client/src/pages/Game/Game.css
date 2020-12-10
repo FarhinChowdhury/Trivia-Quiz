@@ -20,6 +20,11 @@
     text-decoration: none !important;
 }
 
+.badge {
+  /* wrap text to fit inside card (especially for small screens) */
+  white-space: normal !important;
+}
+
 .diffBadge{
     float: right;
 }
