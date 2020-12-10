@@ -6,13 +6,15 @@ function Timer(){
 
     const [data, setData] = useContext(globalContext);
 
-    const [timer, setTimer] = useState(90); // 90
+    const [timer, setTimer] = useState(90); // use same timer value for lvl, ta modes
+    // const [timer, setTimer] = useState(data.mode==='lvl' ? 60: 90); // Init timer value here instead of in useEffect
 
     let history = useHistory();
 
-    useEffect(function(){
-        if(data.mode === 'lvl') setTimer(60); // 60
-    }, []);
+    // Comment out to fix conflict where two timers start: one with 60 and another with 90
+    // useEffect(function(){
+    //     if(data.mode === 'lvl') setTimer(60); // 60
+    // }, []);
 
     useEffect(function(){
         const timerOut = setTimeout(() => {
