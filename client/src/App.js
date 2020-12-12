@@ -55,15 +55,21 @@ function App() {
       });
       console.log(res);
     } else {
-      res = await API.loginUser({
-        username: formInfo.username,
-        password: formInfo.password
-      });
-      // Check success
-      // console.log('[handleLoginSubmit]', res.data);
-      if (!res.data.username) {
-        // console.log('[handleLoginSubmit] bad login');
-        setFormInfo({...formInfo, error: 'Invalid credentials!'});
+      try {
+        res = await API.loginUser({
+          username: formInfo.username,
+          password: formInfo.password
+        });
+        // Check success
+        // console.log('[handleLoginSubmit]', res.data);
+        if (!res.data.username) {
+          // console.log('[handleLoginSubmit] bad login');
+          setFormInfo({...formInfo, error: 'Invalid credentials!'});
+          return false;
+        }
+      } catch(err) {
+        // console.log('[handleLoginSubmit] login err');
+        setFormInfo({...formInfo, error: 'User not found!'});
         return false;
       }
     }
