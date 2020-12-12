@@ -28,7 +28,7 @@ The user's highest scores will then be updated on their profile page where they 
 
 ![score page screenshot](client/src/assets/profile_page.png)
 
-To try the app without having to login, use username: *guest* and password: *guestGUEST*
+To try the app without having to sign up, use username: *guest* and password: *guestGUEST*
 
 ## Technologies
 * React
