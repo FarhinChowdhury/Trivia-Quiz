@@ -3,7 +3,7 @@
 ## Description
 E-Logical Trivia is an interactive trivia application developed with full stack web technologies using the [Open Trivia Database API](https://opentdb.com/) to generate the trivia questions.
 
-See the deployed app here: [E-Logical Trivia App](https://vast-ocean-41089.herokuapp.com/)
+See the deployed app here: [E-Logical Trivia App](https://e-logical-trivia-20809.herokuapp.com/)
 
 ## Table of Contents
 - [Usage](#usage)
@@ -16,17 +16,19 @@ The user can create an account with username, email, and password. Existing user
 ![signup screenshot](client/src/assets/signup_page.png)
 ![login screenshot](client/src/assets/login_page.png)
 
- Afterwards choose between two game modes: Time Attack where the user can answer as many questions before time runs out, or Levels where for every ten questions, the difficulty of the trivia rises. 
+Afterwards choose between two game modes: Time Attack where the user can answer as many questions before time runs out, or Levels where for every ten questions, the difficulty of the trivia rises.
  
- ![home page screenshot](client/src/assets/screenshot-trivia.jpg)
+![home page screenshot](client/src/assets/screenshot-trivia.jpg)
 
- The user's score and highscore is displayed at the end of the trivia. 
+The user's score and highscore is displayed at the end of the trivia.
  
-  ![score page screenshot](client/src/assets/score_page.png)
+![score page screenshot](client/src/assets/score_page.png)
 
- The user's highest scores will then be updated on their profile page where they can also upload a profile picture.
+The user's highest scores will then be updated on their profile page where they can also upload a profile picture.
 
-  ![score page screenshot](client/src/assets/profile_page.png)
+![score page screenshot](client/src/assets/profile_page.png)
+
+To try the app without having to login, use username: *guest* and password: *guestGUEST*
 
 ## Technologies
 * React
